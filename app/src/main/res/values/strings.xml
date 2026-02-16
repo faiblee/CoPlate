@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CoPlate</string>
+    <string name="breakfastButton">Выберите блюдо</string>
+    <string name="addCustomDishBreakfast">Добавить свое блюдо</string>
+    <string name="libraryBreakfast">Библиотека блюд</string>
+    <string name="lunchButton">Выберите блюдо</string>
+    <string name="addCustomDishLunch">Добавить свое блюдо</string>
+    <string name="libraryLunch">Библиотека блюд</string>
+    <string name="dinnerButton">Выберите блюдо</string>
+    <string name="addCustomDishDinner">Добавить свое блюдо</string>
+    <string name="libraryDinner">Библиотека блюд</string>
 </resources>
