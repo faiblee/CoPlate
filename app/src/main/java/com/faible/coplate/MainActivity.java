@@ -1,24 +1,52 @@
-package com.faible.coplate;
+package com.faible.coplate; // ЗАМЕНИТЕ НА ВАШ ПАКЕТ!
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.view.View;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    private View breakfastActions, lunchActions, dinnerActions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        // Находим контейнеры с кнопками действий
+        breakfastActions = findViewById(R.id.breakfastActions);
+        lunchActions = findViewById(R.id.lunchActions);
+        dinnerActions = findViewById(R.id.dinnerActions);
+
+        // Находим кнопки выбора блюда
+        Button breakfastBtn = findViewById(R.id.breakfastButton);
+        Button lunchBtn = findViewById(R.id.lunchButton);
+        Button dinnerBtn = findViewById(R.id.dinnerButton);
+
+        // Обработчик для завтрака
+        breakfastBtn.setOnClickListener(v -> {
+            hideAllActions();
+            breakfastActions.setVisibility(View.VISIBLE);
         });
+
+        // Обработчик для обеда
+        lunchBtn.setOnClickListener(v -> {
+            hideAllActions();
+            lunchActions.setVisibility(View.VISIBLE);
+        });
+
+        // Обработчик для ужина
+        dinnerBtn.setOnClickListener(v -> {
+            hideAllActions();
+            dinnerActions.setVisibility(View.VISIBLE);
+        });
+    }
+
+    // Вспомогательный метод для скрытия всех контейнеров
+    private void hideAllActions() {
+        breakfastActions.setVisibility(View.GONE);
+        lunchActions.setVisibility(View.GONE);
+        dinnerActions.setVisibility(View.GONE);
     }
 }

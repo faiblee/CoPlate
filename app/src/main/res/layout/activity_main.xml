@@ -2,18 +2,350 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#FFFFFF"
+    android:padding="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Верхняя панель с днями недели -->
+    <HorizontalScrollView
+        android:id="@+id/daysScrollView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/monday"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/day_week_circle_selector"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="Пн"
+                android:textColor="@color/day_week_text_selector"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/tuesday"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/day_week_circle_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Вт"
+                android:textColor="@color/day_week_text_selector"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/wednesday"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/day_week_circle_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Ср"
+                android:textColor="@color/day_week_text_selector"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/thursday"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/day_week_circle_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Чт"
+                android:textColor="@color/day_week_text_selector"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/friday"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/day_week_circle_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Пт"
+                android:textColor="@color/day_week_text_selector"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/saturday"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/day_week_circle_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Сб"
+                android:textColor="@color/day_week_text_selector"
+                android:textSize="14sp" />
+
+            <RadioButton
+                android:id="@+id/sunday"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/day_week_circle_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="Вс"
+                android:textColor="@color/day_week_text_selector"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- Заголовок "дни недели" -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="дни недели"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/daysScrollView"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Секция завтрака -->
+    <LinearLayout
+        android:id="@+id/breakfastSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/break_lunch_dinner_background"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Завтрак"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/breakfastButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_background"
+            android:text="@string/breakfastButton"
+            android:textAllCaps="false"/>
+
+        <!-- Кнопки, которые появляются при нажатии на завтрак -->
+        <LinearLayout
+            android:id="@+id/breakfastActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/addCustomDishBreakfast"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/action_button"
+                android:text="@string/addCustomDishBreakfast"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/libraryBreakfast"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/action_button"
+                android:text="@string/libraryBreakfast"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Секция обеда -->
+    <LinearLayout
+        android:id="@+id/lunchSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/break_lunch_dinner_background"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/breakfastSection">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Обед"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/lunchButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_background"
+            android:text="@string/lunchButton"
+            android:textAllCaps="false"/>
+
+        <!-- Кнопки, которые появляются при нажатии на обед -->
+        <LinearLayout
+            android:id="@+id/lunchActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/addCustomDishLunch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/action_button"
+                android:text="@string/addCustomDishLunch"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/libraryLunch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/action_button"
+                android:text="@string/libraryLunch"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Секция ужина -->
+    <LinearLayout
+        android:id="@+id/dinnerSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/break_lunch_dinner_background"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lunchSection">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ужин"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/dinnerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_background"
+            android:text="@string/dinnerButton"
+            android:textAllCaps="false"/>
+
+        <!-- Кнопки, которые появляются при нажатии на ужин -->
+        <LinearLayout
+            android:id="@+id/dinnerActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/addCustomDishDinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/action_button"
+                android:text="@string/addCustomDishDinner"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/libraryDinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/action_button"
+                android:text="@string/libraryDinner"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Нижняя навигационная панель -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#F5F5F5"
+        android:padding="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/todayButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_button_selector"
+            android:text="Сегодня"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/shoppingListButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_button_selector"
+            android:text="Список покупок"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/familyButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_button_selector"
+            android:text="Семья"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/libraryButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_button_selector"
+            android:text="Библиотека блюд"
+            android:textAllCaps="false"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
