@@ -3,13 +3,30 @@
     <string name="week_days">Дни недели</string>
     <string name="settings">Настройки</string>
     <string name="today_menu">Меню на сегодня</string>
+    <string name="meal_breakfast">Завтрак</string>
+    <string name="meal_lunch">Обед</string>
+    <string name="meal_dinner">Ужин</string>
     <string name="add_custom_dish">Добавить своё блюдо</string>
     <string name="library_dishes">Библиотека блюд</string>
     <string name="suggestion_add_ingredients">После добавления блюда предложим добавить все необходимые ингредиенты в список покупок.</string>
     <string name="nav_today">Сегодня</string>
-    <string name="nav_shopping">Список
-покупок</string>
+    <string name="nav_shopping">Покупки</string>
     <string name="nav_family">Семья</string>
-    <string name="nav_library">Библиотека
-блюд</string>
+    <string name="nav_library">Библиотека</string>
+    <string name="login">Войти</string>
+    <string name="Authorization">Авторизация</string>
+    <string name="Registration">Регистрация</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
