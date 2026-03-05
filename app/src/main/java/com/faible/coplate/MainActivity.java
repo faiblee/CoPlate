@@ -3,16 +3,12 @@ package com.faible.coplate;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,15 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private Button lunchButton;
     private Button dinnerButton;
 
-    private final Map<Integer, DayMenuStub> dayMenus = new HashMap<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initViews();
-        initDayMenuStubs();
         initBottomNavigation();
         initActionButtons();
 
@@ -55,16 +48,6 @@ public class MainActivity extends AppCompatActivity {
         breakfastButton = findViewById(R.id.breakfastButton);
         lunchButton = findViewById(R.id.lunchButton);
         dinnerButton = findViewById(R.id.dinnerButton);
-    }
-
-    private void initDayMenuStubs() {
-        dayMenus.put(R.id.monday, new DayMenuStub("Понедельник", "Завтрак · Овсянка с ягодами", "Обед · Куриный суп", "Ужин · Гречка с овощами"));
-        dayMenus.put(R.id.tuesday, new DayMenuStub("Вторник", "Завтрак · Тост с авокадо", "Обед · Паста с индейкой", "Ужин · Рыба с рисом"));
-        dayMenus.put(R.id.wednesday, new DayMenuStub("Среда", "Завтрак · Сырники", "Обед · Рис и тефтели", "Ужин · Овощной салат и омлет"));
-        dayMenus.put(R.id.thursday, new DayMenuStub("Четверг", "Завтрак · Йогурт и гранола", "Обед · Борщ", "Ужин · Тушёные овощи"));
-        dayMenus.put(R.id.friday, new DayMenuStub("Пятница", "Завтрак · Блины", "Обед · Говядина с картофелем", "Ужин · Киноа с курицей"));
-        dayMenus.put(R.id.saturday, new DayMenuStub("Суббота", "Завтрак · Яичница", "Обед · Лазанья", "Ужин · Крем-суп"));
-        dayMenus.put(R.id.sunday, new DayMenuStub("Воскресенье", "Завтрак · Творог и фрукты", "Обед · Плов", "Ужин · Запечённая рыба"));
     }
 
     private void initBottomNavigation() {
@@ -97,23 +80,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUiForDay(int checkedId) {
-        DayMenuStub stub = dayMenus.get(checkedId);
-        if (stub == null) {
+        if (checkedId == View.NO_ID) {
             return;
         }
 
-        selectedDayLabel.setText(String.format(Locale.getDefault(), "Меню на %s", stub.dayName));
-        breakfastButton.setText(stub.breakfast);
-        lunchButton.setText(stub.lunch);
-        dinnerButton.setText(stub.dinner);
+        selectedDayLabel.setText(getString(R.string.today_menu));
+        breakfastButton.setText(getString(R.string.meal_breakfast));
+        lunchButton.setText(getString(R.string.meal_lunch));
+        dinnerButton.setText(getString(R.string.meal_dinner));
 
         hideAllActions();
-        breakfastActions.setVisibility(View.VISIBLE);
-
         shoppingSuggestion.setVisibility(View.GONE);
-
-        RadioButton selectedDay = findViewById(checkedId);
-        showToast("Выбран день: " + selectedDay.getText());
     }
 
     private void toggleMealActions(View mealActions) {
@@ -145,17 +122,4 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private static class DayMenuStub {
-        final String dayName;
-        final String breakfast;
-        final String lunch;
-        final String dinner;
-
-        DayMenuStub(String dayName, String breakfast, String lunch, String dinner) {
-            this.dayName = dayName;
-            this.breakfast = breakfast;
-            this.lunch = lunch;
-            this.dinner = dinner;
-        }
-    }
 }
