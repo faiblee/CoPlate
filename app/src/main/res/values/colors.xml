@@ -3,5 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_button_green">#eaf5ee</color>
+    <color name="text_green">#258B4E</color>
+    <color name="main_green">#BFF3D6</color>
 
 </resources>

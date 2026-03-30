@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private Button lunchButton;
     private Button dinnerButton;
 
+    private View selectedBottomButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +53,56 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initBottomNavigation() {
-        setupStubClick(R.id.settingsButton, "Настройки пока в разработке");
-        setupStubClick(R.id.todayButton, "Раздел «Сегодня» уже открыт");
-        setupStubClick(R.id.shoppingListButton, "Откроем список покупок позже (заглушка)");
-        setupStubClick(R.id.familyButton, "Экран семьи будет подключён позже (заглушка)");
-        setupStubClick(R.id.libraryButton, "Библиотека блюд временно недоступна (заглушка)");
+        // Получаем все кнопки навигации
+        View todayButton = findViewById(R.id.todayButton);
+        View shoppingListButton = findViewById(R.id.shoppingListButton);
+        View familyButton = findViewById(R.id.familyButton);
+        View libraryButton = findViewById(R.id.libraryButton);
+
+        // Список всех кнопок для удобного сброса выделения
+        View[] navButtons = {todayButton, shoppingListButton, familyButton, libraryButton};
+
+        // Общий слушатель для всех кнопок
+        View.OnClickListener navClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Сбросить выделение со всех кнопок
+                for (View button : navButtons) {
+                    if (button != null) {
+                        button.setSelected(false);
+                    }
+                }
+                // Выделить нажатую кнопку
+                v.setSelected(true);
+                selectedBottomButton = v;
+
+                // Показать заглушку (ваша старая логика)
+                String message = "";
+                int id = v.getId();
+                if (id == R.id.settingsButton) {
+                    message = "Настройки пока в разработке";
+                } else if (id == R.id.todayButton) {
+                    message = "Раздел «Сегодня» уже открыт";
+                } else if (id == R.id.shoppingListButton) {
+                    message = "Откроем список покупок позже (заглушка)";
+                } else if (id == R.id.familyButton) {
+                    message = "Экран семьи будет подключён позже (заглушка)";
+                } else if (id == R.id.libraryButton) {
+                    message = "Библиотека блюд временно недоступна (заглушка)";
+                }
+                showToast(message);
+            }
+        };
+
+        // Назначаем слушатель на все кнопки
+        todayButton.setOnClickListener(navClickListener);
+        shoppingListButton.setOnClickListener(navClickListener);
+        familyButton.setOnClickListener(navClickListener);
+        libraryButton.setOnClickListener(navClickListener);
+
+        // Выделяем первую кнопку по умолчанию (Сегодня)
+        todayButton.setSelected(true);
+        selectedBottomButton = todayButton;
     }
 
     private void initActionButtons() {

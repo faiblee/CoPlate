@@ -9,10 +9,10 @@
     <string name="add_custom_dish">Добавить своё блюдо</string>
     <string name="library_dishes">Библиотека блюд</string>
     <string name="suggestion_add_ingredients">После добавления блюда предложим добавить все необходимые ингредиенты в список покупок.</string>
-    <string name="nav_today">Сегодня</string>
+    <string name="nav_today">День</string>
     <string name="nav_shopping">Покупки</string>
     <string name="nav_family">Семья</string>
-    <string name="nav_library">Библиотека</string>
+    <string name="nav_library">Каталог</string>
     <string name="login">Войти</string>
     <string name="Authorization">Авторизация</string>
     <string name="Registration">Регистрация</string>
@@ -27,6 +27,7 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete">Удалить</string>
 
 
 </resources>
