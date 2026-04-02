@@ -96,7 +96,7 @@
             android:text="Создать"
             android:textAllCaps="false"
             android:background="@drawable/btn_green_light"
-            android:textColor="#258B4E"
+            android:textColor="#1F2A24"
             android:layout_marginTop="12dp"
             app:backgroundTint="@null"/>
 
@@ -150,7 +150,7 @@
             android:text="Присоединиться"
             android:textAllCaps="false"
             android:background="@drawable/btn_green_light"
-            android:textColor="#258B4E"
+            android:textColor="#1F2A24"
             android:layout_marginTop="12dp"
             app:backgroundTint="@null"/>
 
