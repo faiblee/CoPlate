@@ -33,6 +33,9 @@
     <string name="add">Добавить</string>
     <string name="enter">Введите название товара</string>
     <string name="search_dish">Поиск блюда...</string>
+    <!---->
+    <string name="create_family">Создайте семью или присоединитесь к уже существующей</string>
+    <string name="Family">Семья</string>
 
 
 </resources>

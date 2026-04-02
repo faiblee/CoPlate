@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Семья"
+            android:text="@string/Family"
             android:textColor="#1F2A24"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -62,8 +62,6 @@
         android:drawableEnd="@drawable/strelka"
         android:paddingStart="16dp"
         android:paddingEnd="12dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
         app:backgroundTint="@null"
         />
@@ -76,8 +74,8 @@
         android:visibility="visible"
         android:background="@drawable/rounded_rectangle"
         android:padding="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
         android:layout_marginBottom="16dp">
 
         <EditText
@@ -118,8 +116,6 @@
         android:drawableEnd="@drawable/strelka"
         android:paddingStart="16dp"
         android:paddingEnd="12dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="12dp"
         app:backgroundTint="@null"/>
 
@@ -132,8 +128,8 @@
         android:visibility="visible"
         android:background="@drawable/rounded_rectangle"
         android:padding="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
         android:layout_marginBottom="16dp">
 
         <EditText
