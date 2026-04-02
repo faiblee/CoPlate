@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/itemCheckbox"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_checkbox_unchecked"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="0dp"
+        android:contentDescription="Отметить товар как купленный"
+        android:scaleType="centerInside" />
+
+    <!-- Название товара -->
+    <TextView
+        android:id="@+id/itemText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:textColor="#1F2A24"
+        android:textSize="16sp" />
+
+    <!-- ✅ Кнопка удаления: ImageButton -->
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_remove_circle"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="6dp"
+        android:visibility="gone"
+        android:contentDescription="Удалить товар" />
