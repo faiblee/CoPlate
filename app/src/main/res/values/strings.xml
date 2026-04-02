@@ -30,6 +30,8 @@
     <string name="delete">Удалить</string>
     <string name="shopping_list">Список покупок</string>
     <string name="edit_list">Редактировать</string>
+    <string name="add">Добавить</string>
+    <string name="enter">Введите название товара</string>
 
 
 </resources>
