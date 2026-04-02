@@ -32,6 +32,7 @@
     <string name="edit_list">Редактировать</string>
     <string name="add">Добавить</string>
     <string name="enter">Введите название товара</string>
+    <string name="search_dish">Поиск блюда...</string>
 
 
 </resources>

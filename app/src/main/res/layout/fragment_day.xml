@@ -26,7 +26,7 @@
             android:id="@+id/settingsButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@null"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/settings"
             android:padding="4dp"
             android:src="@drawable/settings" />
@@ -156,7 +156,7 @@
             android:id="@+id/trashButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@null"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/trash"
             android:contentDescription="@string/delete"/>
     </LinearLayout>
@@ -187,7 +187,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/button_background"
                     android:backgroundTint="@null"
-                    android:drawableEnd="@drawable/strelka"
+                    android:drawableEnd="@drawable/strelka_vniz_green"
                     android:gravity="center_vertical|start"
                     android:paddingStart="14dp"
                     android:paddingEnd="12dp"
@@ -212,6 +212,7 @@
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
                         android:text="@string/add_custom_dish"
+                        android:textColor="#1F2A24"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
 
@@ -223,6 +224,7 @@
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
                         android:text="@string/library_dishes"
+                        android:textColor="#1F2A24"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
                 </LinearLayout>
@@ -241,7 +243,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/button_background"
                     android:backgroundTint="@null"
-                    android:drawableEnd="@drawable/strelka"
+                    android:drawableEnd="@drawable/strelka_vniz_green"
                     android:gravity="center_vertical|start"
                     android:paddingStart="14dp"
                     android:paddingEnd="12dp"
@@ -266,6 +268,7 @@
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
                         android:text="@string/add_custom_dish"
+                        android:textColor="#1F2A24"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
 
@@ -277,6 +280,7 @@
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
                         android:text="@string/library_dishes"
+                        android:textColor="#1F2A24"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
                 </LinearLayout>
@@ -295,7 +299,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/button_background"
                     android:backgroundTint="@null"
-                    android:drawableEnd="@drawable/strelka"
+                    android:drawableEnd="@drawable/strelka_vniz_green"
                     android:gravity="center_vertical|start"
                     android:paddingStart="14dp"
                     android:paddingEnd="12dp"
@@ -320,6 +324,7 @@
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
                         android:text="@string/add_custom_dish"
+                        android:textColor="#1F2A24"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
 
@@ -331,6 +336,7 @@
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
                         android:text="@string/library_dishes"
+                        android:textColor="#1F2A24"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
                 </LinearLayout>
