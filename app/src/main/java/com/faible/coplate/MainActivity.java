@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
         todayButton.setOnClickListener(v -> loadFragment(new Day(), true));
         shoppingListButton.setOnClickListener(v -> loadFragment(new Shopping_list(), true));
-        familyButton.setOnClickListener(v -> showToast("Экран семьи в разработке"));
-        libraryButton.setOnClickListener(v -> showToast("Библиотека в разработке"));
+        familyButton.setOnClickListener(v -> loadFragment(new Family(), true));
+        libraryButton.setOnClickListener(v -> loadFragment(new Catalog(), true));
     }
 
     private void loadFragment(Fragment fragment, boolean addToBackStack) {
@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
             todayButton.setSelected(true);
         } else if (fragmentClass == Shopping_list.class) {
             shoppingListButton.setSelected(true);
+        } else if(fragmentClass == Catalog.class){
+            libraryButton.setSelected(true);
+        }else if (fragmentClass == Family.class){
+            familyButton.setSelected(true);
         }
     }
 
