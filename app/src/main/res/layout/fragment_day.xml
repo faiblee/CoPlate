@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Хедер с днями недели и кнопкой настроек -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/week_days"
+            android:textColor="#1F2A24"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings"
+            android:padding="4dp"
+            android:src="@drawable/settings" />
+    </LinearLayout>
+
+    <!-- RadioGroup дней недели -->
+    <RadioGroup
+        android:id="@+id/dayGroup"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/rounted_rectangle">
+
+        <RadioButton
+            android:id="@+id/monday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_week_circle_selector"
+            android:button="@null"
+            android:checked="true"
+            android:gravity="center"
+            android:text="Пн"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/tuesday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_week_circle_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="Вт"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/wednesday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_week_circle_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="Ср"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/thursday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_week_circle_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="Чт"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/friday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_week_circle_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="Пт"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/saturday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_week_circle_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="Сб"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/sunday"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/day_week_circle_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="Вс"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </RadioGroup>
+
+    <!-- Заголовок "Меню на сегодня" + кнопка удаления -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/selectedDayLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/today_menu"
+            android:textColor="#2D3833"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/trashButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/trash"
+            android:contentDescription="@string/delete"/>
+    </LinearLayout>
+
+    <!-- ScrollView с приёмами пищи -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ЗАВТРАК -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/breakfastButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_background"
+                    android:backgroundTint="@null"
+                    android:drawableEnd="@drawable/strelka_vniz_green"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/meal_breakfast"
+                    android:textAllCaps="false"
+                    android:textColor="#258B4E"
+                    android:textSize="24sp"
+                    app:backgroundTint="@null" />
+
+                <LinearLayout
+                    android:id="@+id/breakfastActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <Button
+                        android:id="@+id/addCustomDishBreakfast"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/action_button"
+                        android:backgroundTint="@null"
+                        android:text="@string/add_custom_dish"
+                        android:textColor="#1F2A24"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@null" />
+
+                    <Button
+                        android:id="@+id/libraryBreakfast"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/action_button"
+                        android:backgroundTint="@null"
+                        android:text="@string/library_dishes"
+                        android:textColor="#1F2A24"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@null" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ОБЕД -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/lunchButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_background"
+                    android:backgroundTint="@null"
+                    android:drawableEnd="@drawable/strelka_vniz_green"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/meal_lunch"
+                    android:textAllCaps="false"
+                    android:textColor="#258B4E"
+                    android:textSize="24sp"
+                    app:backgroundTint="@null" />
+
+                <LinearLayout
+                    android:id="@+id/lunchActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/addCustomDishLunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/action_button"
+                        android:backgroundTint="@null"
+                        android:text="@string/add_custom_dish"
+                        android:textColor="#1F2A24"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@null" />
+
+                    <Button
+                        android:id="@+id/libraryLunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/action_button"
+                        android:backgroundTint="@null"
+                        android:text="@string/library_dishes"
+                        android:textColor="#1F2A24"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@null" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- УЖИН -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/dinnerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button_background"
+                    android:backgroundTint="@null"
+                    android:drawableEnd="@drawable/strelka_vniz_green"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="12dp"
+                    android:text="@string/meal_dinner"
+                    android:textAllCaps="false"
+                    android:textColor="#258B4E"
+                    android:textSize="24sp"
+                    app:backgroundTint="@null" />
+
+                <LinearLayout
+                    android:id="@+id/dinnerActions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/addCustomDishDinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/action_button"
+                        android:backgroundTint="@null"
+                        android:text="@string/add_custom_dish"
+                        android:textColor="#1F2A24"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@null" />
+
+                    <Button
+                        android:id="@+id/libraryDinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/action_button"
+                        android:backgroundTint="@null"
+                        android:text="@string/library_dishes"
+                        android:textColor="#1F2A24"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@null" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Подсказка для покупок -->
+            <TextView
+                android:id="@+id/shoppingSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="#EEF7EC"
+                android:padding="12dp"
+                android:text="@string/suggestion_add_ingredients"
+                android:textColor="#2E6B2F"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

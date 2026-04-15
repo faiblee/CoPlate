@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/library_dishes"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1F2A24"
+            android:gravity="center_horizontal"/>
+
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings"
+            android:padding="4dp"
+            android:src="@drawable/settings" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/searchInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_dish"
+        android:background="@drawable/bg_rounded_card"
+        android:padding="12dp"
+        android:drawableStart="@drawable/lupa"
+        android:drawablePadding="8dp"
+        android:inputType="text"
+        android:maxLines="1"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Список блюд -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/catalogRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"/>
+
+</LinearLayout>

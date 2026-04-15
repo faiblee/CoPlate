@@ -1,360 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/screenContainer"
+    <!-- Контейнер для фрагментов (МЕНЯЕТСЯ) -->
+    <FrameLayout
+        android:id="@+id/contentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="34dp"
         android:layout_marginEnd="16dp"
-        android:orientation="vertical"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/week_days"
-                android:textColor="#1F2A24"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/settingsButton"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/settings"
-                android:padding="4dp"
-                android:src="@android:drawable/ic_menu_manage"
-                app:tint="#1F2A24" />
-        </LinearLayout>
-
-        <RadioGroup
-            android:id="@+id/dayGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/monday"
-                android:layout_width="28dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/day_week_circle_selector"
-                android:button="@null"
-                android:checked="true"
-                android:gravity="center"
-                android:text="Пн"
-                android:textColor="@color/day_week_text_selector"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <RadioButton
-                android:id="@+id/tuesday"
-                android:layout_width="28dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/day_week_circle_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:text="Вт"
-                android:textColor="@color/day_week_text_selector"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <RadioButton
-                android:id="@+id/wednesday"
-                android:layout_width="28dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/day_week_circle_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:text="Ср"
-                android:textColor="@color/day_week_text_selector"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <RadioButton
-                android:id="@+id/thursday"
-                android:layout_width="28dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/day_week_circle_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:text="Чт"
-                android:textColor="@color/day_week_text_selector"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <RadioButton
-                android:id="@+id/friday"
-                android:layout_width="28dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/day_week_circle_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:text="Пт"
-                android:textColor="@color/day_week_text_selector"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <RadioButton
-                android:id="@+id/saturday"
-                android:layout_width="28dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/day_week_circle_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:text="Сб"
-                android:textColor="@color/day_week_text_selector"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <RadioButton
-                android:id="@+id/sunday"
-                android:layout_width="28dp"
-                android:layout_height="56dp"
-                android:layout_weight="1"
-                android:background="@drawable/day_week_circle_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:text="Вс"
-                android:textColor="@color/day_week_text_selector"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/selectedDayLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/today_menu"
-            android:textColor="#2D3833"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:overScrollMode="never">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/breakfastButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/button_background"
-                        android:backgroundTint="@null"
-                        app:backgroundTint="@null"
-                        android:drawableEnd="@android:drawable/arrow_up_float"
-                        android:drawableTint="#2A8C5A"
-                        android:gravity="center_vertical|start"
-                        android:paddingStart="14dp"
-                        android:paddingEnd="12dp"
-                        android:text="@string/meal_breakfast"
-                        android:textAllCaps="false"
-                        android:textColor="#1E7C4B"
-                        android:textSize="24sp" />
-
-                    <LinearLayout
-                        android:id="@+id/breakfastActions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <Button
-                            android:id="@+id/addCustomDishBreakfast"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/action_button"
-                            android:backgroundTint="@null"
-                            app:backgroundTint="@null"
-                            android:text="@string/add_custom_dish"
-                            android:textAllCaps="false" />
-
-                        <Button
-                            android:id="@+id/libraryBreakfast"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:background="@drawable/action_button"
-                            android:backgroundTint="@null"
-                            app:backgroundTint="@null"
-                            android:text="@string/library_dishes"
-                            android:textAllCaps="false" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/lunchButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/button_background"
-                        android:backgroundTint="@null"
-                        app:backgroundTint="@null"
-                        android:drawableEnd="@android:drawable/arrow_up_float"
-                        android:drawableTint="#2A8C5A"
-                        android:gravity="center_vertical|start"
-                        android:paddingStart="14dp"
-                        android:paddingEnd="12dp"
-                        android:text="@string/meal_lunch"
-                        android:textAllCaps="false"
-                        android:textColor="#1E7C4B"
-                        android:textSize="24sp" />
-
-                    <LinearLayout
-                        android:id="@+id/lunchActions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <Button
-                            android:id="@+id/addCustomDishLunch"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/action_button"
-                            android:backgroundTint="@null"
-                            app:backgroundTint="@null"
-                            android:text="@string/add_custom_dish"
-                            android:textAllCaps="false" />
-
-                        <Button
-                            android:id="@+id/libraryLunch"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:background="@drawable/action_button"
-                            android:backgroundTint="@null"
-                            app:backgroundTint="@null"
-                            android:text="@string/library_dishes"
-                            android:textAllCaps="false" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/dinnerButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/button_background"
-                        android:backgroundTint="@null"
-                        app:backgroundTint="@null"
-                        android:drawableEnd="@android:drawable/arrow_up_float"
-                        android:drawableTint="#2A8C5A"
-                        android:gravity="center_vertical|start"
-                        android:paddingStart="14dp"
-                        android:paddingEnd="12dp"
-                        android:text="@string/meal_dinner"
-                        android:textAllCaps="false"
-                        android:textColor="#1E7C4B"
-                        android:textSize="24sp" />
-
-                    <LinearLayout
-                        android:id="@+id/dinnerActions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical"
-                        android:visibility="gone">
-
-                        <Button
-                            android:id="@+id/addCustomDishDinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/action_button"
-                            android:backgroundTint="@null"
-                            app:backgroundTint="@null"
-                            android:text="@string/add_custom_dish"
-                            android:textAllCaps="false" />
-
-                        <Button
-                            android:id="@+id/libraryDinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:background="@drawable/action_button"
-                            android:backgroundTint="@null"
-                            app:backgroundTint="@null"
-                            android:text="@string/library_dishes"
-                            android:textAllCaps="false" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/shoppingSuggestion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:background="#EEF7EC"
-                    android:padding="12dp"
-                    android:text="@string/suggestion_add_ingredients"
-                    android:textColor="#2E6B2F"
-                    android:textSize="13sp"
-                    android:visibility="gone" />
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-
+    <!-- Нижняя навигация (НЕ МЕНЯЕТСЯ) -->
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
-        android:layout_height="54dp"
+        android:layout_height="69dp"
         android:background="@drawable/bottom_nav_background"
-        android:gravity="center"
         android:orientation="horizontal"
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
@@ -362,69 +34,122 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <!-- Кнопка "Сегодня" -->
+        <LinearLayout
             android:id="@+id/todayButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bottom_button_selector"
-            android:backgroundTint="@null"
-            app:backgroundTint="@null"
-            android:drawableTop="@android:drawable/ic_menu_today"
+            android:orientation="vertical"
             android:gravity="center"
-            android:paddingTop="4dp"
-            android:text="@string/nav_today"
-            android:textAllCaps="false"
-            android:textColor="#1F2A24"
-            android:textSize="10sp" />
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/nav_button_selector"
+            android:padding="4dp">
 
-        <Button
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/calendar"
+                android:scaleType="centerInside" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/nav_today"
+                android:textColor="#1F2A24"
+                android:textSize="12sp"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <!-- Кнопка "Список покупок" -->
+        <LinearLayout
             android:id="@+id/shoppingListButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bottom_button_selector"
-            android:backgroundTint="@null"
-            app:backgroundTint="@null"
-            android:drawableTop="@android:drawable/ic_menu_agenda"
+            android:orientation="vertical"
             android:gravity="center"
-            android:paddingTop="4dp"
-            android:text="@string/nav_shopping"
-            android:textAllCaps="false"
-            android:textColor="#1F2A24"
-            android:textSize="10sp" />
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/nav_button_selector"
+            android:padding="4dp">
 
-        <Button
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/pokupki"
+                android:scaleType="centerInside" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/nav_shopping"
+                android:textColor="#1F2A24"
+                android:textSize="12sp"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <!-- Кнопка "Семья" -->
+        <LinearLayout
             android:id="@+id/familyButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bottom_button_selector"
-            android:backgroundTint="@null"
-            app:backgroundTint="@null"
-            android:drawableTop="@android:drawable/ic_menu_myplaces"
+            android:orientation="vertical"
             android:gravity="center"
-            android:paddingTop="4dp"
-            android:text="@string/nav_family"
-            android:textAllCaps="false"
-            android:textColor="#1F2A24"
-            android:textSize="10sp" />
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/nav_button_selector"
+            android:padding="4dp">
 
-        <Button
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/family"
+                android:scaleType="centerInside" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/nav_family"
+                android:textColor="#1F2A24"
+                android:textSize="12sp"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <!-- Кнопка "Библиотека" -->
+        <LinearLayout
             android:id="@+id/libraryButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bottom_button_selector"
-            android:backgroundTint="@null"
-            app:backgroundTint="@null"
-            android:drawableTop="@android:drawable/ic_menu_sort_by_size"
+            android:orientation="vertical"
             android:gravity="center"
-            android:paddingTop="4dp"
-            android:text="@string/nav_library"
-            android:textAllCaps="false"
-            android:textColor="#1F2A24"
-            android:textSize="10sp" />
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/nav_button_selector"
+            android:padding="4dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/biblio"
+                android:scaleType="centerInside" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/nav_library"
+                android:textColor="#1F2A24"
+                android:textSize="12sp"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

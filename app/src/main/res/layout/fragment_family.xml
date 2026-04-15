@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Family">
+
+    <!-- Хедер -->
+    <FrameLayout
+        android:id="@+id/family_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="5dp">
+
+        <!-- Заголовок по центру -->
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/Family"
+            android:textColor="#1F2A24"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <!-- Кнопка справа -->
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="end|center_vertical"
+            android:background="@null"
+            android:contentDescription="@string/settings"
+            android:padding="4dp"
+            android:src="@drawable/settings" />
+    </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_family"
+        android:paddingStart="10dp"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="10dp" />
+    <!-- Кнопка "Создать семью" -->
+    <Button
+        android:id="@+id/createFamilyButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="@null"
+        android:text="Создать семью"
+        android:textColor="#258B4E"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:drawableEnd="@drawable/strelka"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="12dp"
+        app:backgroundTint="@null"
+        />
+    <!-- Раскрывающийся контент для "Создать семью" -->
+    <LinearLayout
+        android:id="@+id/createFamilyContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@drawable/rounded_rectangle"
+        android:padding="16dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="16dp">
+
+        <EditText
+            android:id="@+id/familyNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Название семьи"
+            android:background="@drawable/btn_green_light"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="#999999"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/createSubmitButton"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="Создать"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_green_light"
+            android:textColor="#1F2A24"
+            android:layout_marginTop="12dp"
+            app:backgroundTint="@null"/>
+
+    </LinearLayout>
+
+    <!-- Кнопка "Присоединиться" -->
+    <Button
+        android:id="@+id/joinFamilyButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/button_background"
+        android:backgroundTint="@null"
+        android:text="Присоединиться"
+        android:textColor="#258B4E"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:drawableEnd="@drawable/strelka"
+        android:paddingStart="16dp"
+        android:paddingEnd="12dp"
+        android:layout_marginBottom="12dp"
+        app:backgroundTint="@null"/>
+
+    <!-- Раскрывающийся контент для "Присоединиться" -->
+    <LinearLayout
+        android:id="@+id/joinFamilyContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@drawable/rounded_rectangle"
+        android:padding="16dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="16dp">
+
+        <EditText
+            android:id="@+id/familyCodeInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Код для ввода"
+            android:background="@drawable/btn_green_light"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="#999999"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/joinSubmitButton"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="Присоединиться"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_green_light"
+            android:textColor="#1F2A24"
+            android:layout_marginTop="12dp"
+            app:backgroundTint="@null"/>
+
+    </LinearLayout>
+
+
+
+
+    </LinearLayout>
