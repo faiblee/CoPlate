@@ -37,7 +37,7 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Инициализация API
-        authApi = RetrofitClient.getClient().create(AuthApi.class);
+        authApi = RetrofitClient.getClient(requireContext()).create(AuthApi.class);
 
         // Инициализация Views
         etUsername = view.findViewById(R.id.etUsername);

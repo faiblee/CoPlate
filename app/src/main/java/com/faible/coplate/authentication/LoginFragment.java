@@ -73,7 +73,7 @@ public class LoginFragment extends Fragment {
         LoginRequest request = new LoginRequest(username, password);
 
         // Получение API сервиса
-        AuthApi authApi = RetrofitClient.getClient().create(AuthApi.class);
+        AuthApi authApi = RetrofitClient.getClient(requireContext()).create(AuthApi.class);
 
         // Выполнение запроса
         authApi.login(request).enqueue(new Callback<AuthResponse>() {

@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.faible.coplate.authentication.AuthActivity;
+import com.faible.coplate.family.FamilyInsideFragment;
+import com.faible.coplate.family.FamilySelectFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,7 +74,18 @@ public class MainActivity extends AppCompatActivity {
 
         todayButton.setOnClickListener(v -> loadFragment(new Day(), true));
         shoppingListButton.setOnClickListener(v -> loadFragment(new Shopping_list(), true));
-        familyButton.setOnClickListener(v -> loadFragment(new Family(), true));
+        familyButton.setOnClickListener(v -> {
+            SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
+            String familyId = prefs.getString("family_id", null);
+
+            if (familyId != null) {
+                // ЕСТЬ СЕМЬЯ -> Открываем экран семьи
+                loadFragment(new FamilyInsideFragment(), true);
+            } else {
+                // НЕТ СЕМЬИ -> Открываем экран создания/входа
+                loadFragment(new FamilySelectFragment(), true);
+            }
+        });
         libraryButton.setOnClickListener(v -> loadFragment(new Catalog(), true));
     }
 
@@ -108,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             shoppingListButton.setSelected(true);
         } else if(fragmentClass == Catalog.class){
             libraryButton.setSelected(true);
-        }else if (fragmentClass == Family.class){
+        }else if (fragmentClass == FamilySelectFragment.class){
             familyButton.setSelected(true);
         }
     }
