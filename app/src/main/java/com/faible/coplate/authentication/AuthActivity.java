@@ -40,6 +40,11 @@ public class AuthActivity extends AppCompatActivity {
     public void loginSuccess(String token, String userId, String username, String name) {
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         prefs.edit()
+                .remove("family_id")
+                .remove("family_name")
+                .remove("family_invite_code")
+                .apply();
+        prefs.edit()
                 .putString(KEY_TOKEN, token)
                 .putString(KEY_USER_ID, userId)
                 .putString(KEY_USERNAME, username)

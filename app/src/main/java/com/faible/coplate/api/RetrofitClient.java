@@ -1,5 +1,7 @@
 package com.faible.coplate.api;
 
+import android.content.Context;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -12,16 +14,18 @@ public class RetrofitClient {
 
     private static Retrofit retrofit = null;
 
-    public static Retrofit getClient() {
+    public static Retrofit getClient(Context context) {
         if (retrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            AuthInterceptor authInterceptor = new AuthInterceptor(context);
 
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
                     .connectTimeout(30, TimeUnit.SECONDS)
                     .readTimeout(30, TimeUnit.SECONDS)
                     .writeTimeout(30, TimeUnit.SECONDS)
-                    .addInterceptor(logging);
+                    .addInterceptor(logging)
+                    .addInterceptor(authInterceptor);
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
