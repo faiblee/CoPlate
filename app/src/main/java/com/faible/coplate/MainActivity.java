@@ -6,6 +6,10 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import android.content.Intent;
+import android.content.SharedPreferences;
+
+import com.faible.coplate.authentication.AuthActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,9 +23,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 1. ПРОВЕРКА АВТОРИЗАЦИИ ПЕРЕД ЗАГРУЗКОЙ ИНТЕРФЕЙСА
+        SharedPreferences prefs = getSharedPreferences("app_prefs", MODE_PRIVATE);
+        String token = prefs.getString("auth_token", null);
+        String userId = prefs.getString("user_id", null);
+
+        if (token == null || userId == null) {
+            // Токена нет -> отправляем на экран логина
+            Intent intent = new Intent(MainActivity.this, AuthActivity.class);
+            // Флаги очищают стек задач, чтобы при нажатии "Назад" из логина не вернуться в пустую MainActivity
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish(); // Закрываем текущую активность
+            return; // Прерываем выполнение метода, setContentView не вызывается
+        }
+
+        // 2. ЕСЛИ ТОКЕН ЕСТЬ -> загружаем интерфейс
         setContentView(R.layout.activity_main);
 
-        // ✅ Регистрация обработчика кнопки "Назад" (новый способ)
+        // Регистрация обработчика кнопки "Назад"
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -29,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     // Есть куда возвращаться → идём назад по фрагментам
                     getSupportFragmentManager().popBackStack();
                 } else {
-                    // Нет истории → закрываем Activity
+                    // Нет истории → закрываем Activity (или можно показать диалог выхода)
                     finish();
                 }
             }
