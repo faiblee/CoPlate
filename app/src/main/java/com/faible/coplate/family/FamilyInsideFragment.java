@@ -51,7 +51,7 @@ public class FamilyInsideFragment extends Fragment {
         familyApi = RetrofitClient.getClient(requireContext()).create(FamilyApi.class);
 
         SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
-        currentFamilyId = prefs.getString("family_id_" + currentUserId, null);
+        currentFamilyId = prefs.getString("family_id", null);
         currentUserId = prefs.getString("user_id", null);
 
         if (currentFamilyId == null || currentUserId == null) {
