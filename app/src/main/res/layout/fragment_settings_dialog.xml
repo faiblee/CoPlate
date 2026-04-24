@@ -7,6 +7,7 @@
     android:background="@drawable/rounded_rectangle"
     android:padding="24dp">
 
+    <!-- Заголовок "Настройки" по центру -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -16,6 +17,7 @@
         android:textStyle="bold"
         android:textColor="#1F2A24"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Выбор темы -->
@@ -35,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/btn_green_light"
+        android:background="#F5F5F5"
         android:padding="4dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +52,8 @@
             android:text="Светлая"
             android:button="@null"
             android:gravity="center"
-            android:background="@drawable/theme_selector"
-            android:textColor="#FFFFFF"
+            android:background="@drawable/theme_selector_neutral"
+            android:textColor="#212121"
             android:checked="true"/>
 
         <RadioButton
@@ -62,93 +64,183 @@
             android:text="Тёмная"
             android:button="@null"
             android:gravity="center"
-            android:background="@drawable/theme_selector"
+            android:background="@drawable/theme_selector_neutral"
             android:textColor="#FFFFFF"/>
     </RadioGroup>
 
-    <!-- Поля ввода -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilUsername"
+    <!-- ========================================== -->
+    <!-- 1. Поле "Имя пользователя" с карандашом    -->
+    <!-- ========================================== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Имя пользователя"
         android:layout_marginTop="16dp"
-        app:boxBackgroundMode="filled"
-        app:boxBackgroundColor="#F5F5F5"
-        app:boxCornerRadiusTopStart="40dp"
-        app:boxCornerRadiusTopEnd="40dp"
-        app:boxCornerRadiusBottomStart="40dp"
-        app:boxCornerRadiusBottomEnd="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/themeGroup">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <!-- Лейбл -->
+        <TextView
+            android:id="@+id/tvUsernameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Имя пользователя"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Кнопка-карандаш (справа на уровне лейбла) -->
+        <ImageButton
+            android:id="@+id/btnEditUsername"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_edit_pencil"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="#757575"
+            android:contentDescription="Редактировать имя пользователя"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvUsernameLabel"
+            app:layout_constraintBottom_toBottomOf="@id/tvUsernameLabel" />
+
+        <!-- Поле ввода -->
+        <EditText
             android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/edit_text_background"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:inputType="textPersonName"
-            android:background="@drawable/btn_green_light"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvUsernameLabel" />
 
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPassword"
+    <!-- ========================================== -->
+    <!-- 2. Поле "Имя" с карандашом                 -->
+    <!-- ========================================== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Пароль"
         android:layout_marginTop="12dp"
-        app:boxBackgroundMode="filled"
-        app:boxBackgroundColor="#F5F5F5"
-        app:boxCornerRadiusTopStart="40dp"
-        app:boxCornerRadiusTopEnd="40dp"
-        app:boxCornerRadiusBottomStart="40dp"
-        app:boxCornerRadiusBottomEnd="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilUsername"
-        >
+        app:layout_constraintTop_toBottomOf="@id/containerUsername">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
+        <!-- Лейбл -->
+        <TextView
+            android:id="@+id/tvNameLabel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:background="@drawable/btn_green_light"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="Имя"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Имя"
-        android:layout_marginTop="12dp"
-        app:boxBackgroundMode="filled"
-        app:boxBackgroundColor="#F5F5F5"
-        app:boxCornerRadiusTopStart="40dp"
-        app:boxCornerRadiusTopEnd="40dp"
-        app:boxCornerRadiusBottomStart="40dp"
-        app:boxCornerRadiusBottomEnd="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilPassword">
+        <!-- Кнопка-карандаш (справа на уровне лейбла) -->
+        <ImageButton
+            android:id="@+id/btnEditName"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_edit_pencil"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="#757575"
+            android:contentDescription="Редактировать имя"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvNameLabel"
+            app:layout_constraintBottom_toBottomOf="@id/tvNameLabel" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <!-- Поле ввода -->
+        <EditText
             android:id="@+id/etName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/edit_text_background"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:inputType="textPersonName"
-            android:background="@drawable/btn_green_light"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textColor="#212121"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNameLabel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ========================================== -->
+    <!-- 3. Поле "Старый пароль"                    -->
+    <!-- ========================================== -->
+    <TextView
+        android:id="@+id/tvOldPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Старый пароль"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/containerName" />
+
+    <EditText
+        android:id="@+id/etOldPassword"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_text_background"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:inputType="textPassword"
+        android:textColor="#212121"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOldPasswordLabel" />
+
+    <!-- ========================================== -->
+    <!-- 4. Поле "Новый пароль"                     -->
+    <!-- ========================================== -->
+    <TextView
+        android:id="@+id/tvPasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Пароль"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etOldPassword" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_text_background"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:inputType="textPassword"
+        android:textColor="#212121"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel" />
+
+    <!-- Кнопка "Применить" -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnApply"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/btn_green_solid"
+        android:background="@drawable/btn_gray_solid"
         android:text="Применить"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
@@ -156,7 +248,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilName"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

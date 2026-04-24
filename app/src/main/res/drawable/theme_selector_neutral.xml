@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- СОСТОЯНИЕ: Кнопка ВЫБРАНА (Checked) -->
+    <!-- Это будет фон для активной кнопки (например, "Тёмная") -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#404040" /> <!-- Темно-серый фон -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- СОСТОЯНИЕ: Кнопка НЕ ВЫБРАНА (Default) -->
+    <!-- Это будет фон для неактивной кнопки (например, "Светлая") -->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Можно сделать полностью прозрачным или очень светло-серым (#F5F5F5) -->
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+</selector>

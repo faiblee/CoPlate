@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.faible.coplate.R;
+import com.faible.coplate.SettingsDialogFragment;
 import com.faible.coplate.api.FamilyApi;
 import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.family.Family;
@@ -108,6 +110,7 @@ public class FamilySelectFragment extends Fragment {
                 performJoinFamily(code);
             });
         }
+        initSettingsButton(view);
     }
 
     private void performCreateFamily(String name) {
@@ -177,6 +180,20 @@ public class FamilySelectFragment extends Fragment {
                 .putString("family_name", family.getName())
                 .putString("family_invite_code", family.getInviteCode())
                 .apply();
+    }
+    private void initSettingsButton(View view) {
+        ImageButton settingsBtn = view.findViewById(R.id.settingsButton);
+        if (settingsBtn != null) {
+            settingsBtn.setOnClickListener(v -> {
+                // Создаем экземпляр диалога
+                SettingsDialogFragment dialog = new SettingsDialogFragment();
+
+                // Показываем его.
+                // getChildFragmentManager() используется, если мы внутри фрагмента.
+                // Если бы мы были в Activity, использовали бы getSupportFragmentManager().
+                dialog.show(getChildFragmentManager(), SettingsDialogFragment.TAG);
+            });
+        }
     }
 
     private void showError(Response<Family> response, String defaultMsg) {

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faible.coplate.R;
+import com.faible.coplate.SettingsDialogFragment;
 import com.faible.coplate.api.FamilyApi;
 import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.family.Family;
@@ -81,6 +82,7 @@ public class FamilyInsideFragment extends Fragment {
         if (settingsButton != null) {
             settingsButton.setOnClickListener(v -> Toast.makeText(requireContext(), "Настройки", Toast.LENGTH_SHORT).show());
         }
+        initSettingsButton(view);
     }
 
     private void loadFamilyInfo() {
@@ -129,6 +131,20 @@ public class FamilyInsideFragment extends Fragment {
             actionButton.setText("Покинуть семью");
             actionButton.setTextColor(0xFF1F2A24); // Темный
             actionButton.setOnClickListener(v -> leaveFamily());
+        }
+    }
+    private void initSettingsButton(View view) {
+        ImageButton settingsBtn = view.findViewById(R.id.settingsButton);
+        if (settingsBtn != null) {
+            settingsBtn.setOnClickListener(v -> {
+                // Создаем экземпляр диалога
+                SettingsDialogFragment dialog = new SettingsDialogFragment();
+
+                // Показываем его.
+                // getChildFragmentManager() используется, если мы внутри фрагмента.
+                // Если бы мы были в Activity, использовали бы getSupportFragmentManager().
+                dialog.show(getChildFragmentManager(), SettingsDialogFragment.TAG);
+            });
         }
     }
 
