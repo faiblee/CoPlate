@@ -8,20 +8,19 @@
     tools:context=".Family">
 
     <!-- Хедер -->
-    <FrameLayout
-        android:id="@+id/family_textView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="5dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <!-- Заголовок по центру -->
         <TextView
 
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="@string/Family"
             android:textColor="#1F2A24"
             android:textSize="24sp"
@@ -32,12 +31,11 @@
             android:id="@+id/settingsButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="end|center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/settings"
             android:padding="4dp"
             android:src="@drawable/settings" />
-    </FrameLayout>
+    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
