@@ -67,6 +67,8 @@ public class Shopping_list extends Fragment implements ShoppingListAdapter.OnIte
             toggleEditMode(isEditMode);
         });
 
+        initSettingsButton(view);
+
         // 4. Логика кнопки добавления (Плюс)
         addButton.setOnClickListener(v -> {
             addNewItem();
@@ -78,6 +80,7 @@ public class Shopping_list extends Fragment implements ShoppingListAdapter.OnIte
             return true;
         });
     }
+
 
     private void addNewItem() {
         String text = addItemInput.getText().toString().trim();
@@ -128,6 +131,20 @@ public class Shopping_list extends Fragment implements ShoppingListAdapter.OnIte
             ShoppingItem item = itemList.get(position);
             item.setChecked(!item.isChecked());
             adapter.notifyItemChanged(position);
+        }
+    }
+    private void initSettingsButton(View view) {
+        ImageButton settingsBtn = view.findViewById(R.id.settingsButton);
+        if (settingsBtn != null) {
+            settingsBtn.setOnClickListener(v -> {
+                // Создаем экземпляр диалога
+                SettingsDialogFragment dialog = new SettingsDialogFragment();
+
+                // Показываем его.
+                // getChildFragmentManager() используется, если мы внутри фрагмента.
+                // Если бы мы были в Activity, использовали бы getSupportFragmentManager().
+                dialog.show(getChildFragmentManager(), SettingsDialogFragment.TAG);
+            });
         }
     }
 

@@ -3,6 +3,7 @@ package com.faible.coplate;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class Day extends Fragment {
         initMealToggles(view);
         initActionButtons(view);
         initTrashButton(view);
+        initSettingsButton(view);
     }
 
     private void initMealToggles(View view) {
@@ -73,6 +75,20 @@ public class Day extends Fragment {
     private void initTrashButton(View view) {
         view.findViewById(R.id.trashButton).setOnClickListener(v ->
                 showToast("Очистить меню (заглушка)"));
+    }
+    private void initSettingsButton(View view) {
+        ImageButton settingsBtn = view.findViewById(R.id.settingsButton);
+        if (settingsBtn != null) {
+            settingsBtn.setOnClickListener(v -> {
+                // Создаем экземпляр диалога
+                SettingsDialogFragment dialog = new SettingsDialogFragment();
+
+                // Показываем его.
+                // getChildFragmentManager() используется, если мы внутри фрагмента.
+                // Если бы мы были в Activity, использовали бы getSupportFragmentManager().
+                dialog.show(getChildFragmentManager(), SettingsDialogFragment.TAG);
+            });
+        }
     }
 
     private void showToast(String message) {
