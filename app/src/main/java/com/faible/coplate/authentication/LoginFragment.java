@@ -46,6 +46,15 @@ public class LoginFragment extends Fragment {
         if (btnLogin != null) {
             btnLogin.setOnClickListener(v -> performLogin());
         }
+
+        View btnBack = view.findViewById(R.id.btnBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> {
+                if (getActivity() instanceof AuthActivity) {
+                    ((AuthActivity) requireActivity()).openAuthScreen(new AuthStartFragment());
+                }
+            });
+        }
     }
 
     private void performLogin() {

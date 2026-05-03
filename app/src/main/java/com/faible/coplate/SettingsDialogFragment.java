@@ -1,6 +1,7 @@
 package com.faible.coplate;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.api.UserApi;
+import com.faible.coplate.authentication.AuthActivity;
 import com.faible.coplate.model.UpdateUserRequest;
 import com.faible.coplate.model.User;
 import retrofit2.Call;
@@ -37,6 +39,7 @@ public class SettingsDialogFragment extends DialogFragment {
     private ImageButton btnEditUsername;
     private ImageButton btnEditName;
     private Button btnApply;
+    private Button btnLogout;
     private RadioGroup themeGroup;
 
     // API
@@ -85,10 +88,17 @@ public class SettingsDialogFragment extends DialogFragment {
         btnEditUsername = view.findViewById(R.id.btnEditUsername);
         btnEditName = view.findViewById(R.id.btnEditName);
         btnApply = view.findViewById(R.id.btnApply);
+        btnLogout = view.findViewById(R.id.btnLogout);
         themeGroup = view.findViewById(R.id.themeGroup);
     }
 
     private void loadUserData(String userId) {
+        SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
+        String localUsername = prefs.getString("username", "");
+        String localName = prefs.getString("name", "");
+        if (localUsername != null) etUsername.setText(localUsername);
+        if (localName != null) etName.setText(localName);
+
         // Показываем индикатор загрузки (опционально, можно заблокировать кнопку Apply)
         btnApply.setEnabled(false);
         btnApply.setText("Загрузка...");
@@ -96,6 +106,7 @@ public class SettingsDialogFragment extends DialogFragment {
         userApi.getUserById(userId).enqueue(new Callback<User>() {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                if (!isAdded()) return;
                 btnApply.setEnabled(true);
                 btnApply.setText("Применить");
 
@@ -104,6 +115,12 @@ public class SettingsDialogFragment extends DialogFragment {
                     // Заполняем поля полученными данными
                     if (user.getUsername() != null) etUsername.setText(user.getUsername());
                     if (user.getName() != null) etName.setText(user.getName());
+
+                    SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
+                    prefs.edit()
+                            .putString("username", user.getUsername())
+                            .putString("name", user.getName())
+                            .apply();
                 } else {
                     Toast.makeText(requireContext(), "Не удалось загрузить данные", Toast.LENGTH_SHORT).show();
                 }
@@ -111,6 +128,7 @@ public class SettingsDialogFragment extends DialogFragment {
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+                if (!isAdded()) return;
                 btnApply.setEnabled(true);
                 btnApply.setText("Применить");
                 Toast.makeText(requireContext(), "Ошибка сети при загрузке данных", Toast.LENGTH_SHORT).show();
@@ -125,6 +143,7 @@ public class SettingsDialogFragment extends DialogFragment {
 
         // Кнопка "Применить" отправляет данные на сервер
         btnApply.setOnClickListener(v -> saveSettings());
+        btnLogout.setOnClickListener(v -> logout());
 
         // Логика темы (пока заглушка, как было ранее)
         themeGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -175,19 +194,23 @@ public class SettingsDialogFragment extends DialogFragment {
         userApi.updateUser(currentUserId, request).enqueue(new Callback<User>() {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                if (!isAdded()) return;
                 btnApply.setEnabled(true);
                 btnApply.setText("Применить");
 
                 if (response.isSuccessful() && response.body() != null) {
+                    User updatedUser = response.body();
                     Toast.makeText(requireContext(), "Данные успешно обновлены!", Toast.LENGTH_SHORT).show();
 
-                    // Обновляем локальные данные в SharedPreferences, если имя изменилось
+                    // Обновляем локальный контекст актуальными данными от сервера.
                     SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
                     prefs.edit()
-                            .putString("username", newUsername)
-                            .putString("name", newName)
+                            .putString("username", updatedUser.getUsername() != null ? updatedUser.getUsername() : newUsername)
+                            .putString("name", updatedUser.getName() != null ? updatedUser.getName() : newName)
                             .apply();
 
+                    etOldPassword.setText("");
+                    etNewPassword.setText("");
                     dismiss(); // Закрываем диалог
                 } else {
                     // Обработка ошибок от сервера (400, 409 и т.д.)
@@ -205,11 +228,22 @@ public class SettingsDialogFragment extends DialogFragment {
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+                if (!isAdded()) return;
                 btnApply.setEnabled(true);
                 btnApply.setText("Применить");
                 Toast.makeText(requireContext(), "Ошибка сети: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void logout() {
+        SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
+        prefs.edit().clear().apply();
+
+        Intent intent = new Intent(requireContext(), AuthActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        requireActivity().finish();
     }
 
     @Override

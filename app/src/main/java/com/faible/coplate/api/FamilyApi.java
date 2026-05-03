@@ -5,6 +5,7 @@ import com.faible.coplate.model.FamilyCreateRequest;
 import com.faible.coplate.model.FamilyJoinRequest;
 import com.faible.coplate.model.User;
 import java.util.List;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -36,6 +37,5 @@ public interface FamilyApi {
 
     // Исключение участника из семьи (только владелец)
     @PUT("api/families/{id}/kick")
-    Call<List<String>> kickMember(@Path("id") String id, @Body String userId);
-
+    Call<Void> kickMember(@Path("id") String id, @Body RequestBody userIdBody);
 }

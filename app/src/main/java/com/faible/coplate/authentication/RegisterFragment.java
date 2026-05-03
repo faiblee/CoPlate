@@ -47,6 +47,15 @@ public class RegisterFragment extends Fragment {
         // Если у вас есть ProgressBar в XML, раскомментируйте строку ниже
         // progressBar = view.findViewById(R.id.progressBar);
 
+        View btnBack = view.findViewById(R.id.btnBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> {
+                if (getActivity() instanceof AuthActivity) {
+                    ((AuthActivity) requireActivity()).openAuthScreen(new AuthStartFragment());
+                }
+            });
+        }
+
         view.findViewById(R.id.btnConfirm).setOnClickListener(v -> {
             String username = etUsername.getText().toString().trim();
             String name = etName.getText().toString().trim();

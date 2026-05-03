@@ -1,10 +1,14 @@
 package com.faible.coplate.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
     private String id;
     private String username;
     private String name;
     private String role;
+    @SerializedName(value = "familyId", alternate = {"family_id"})
+    private String familyId;
 
     public User() {}
 
@@ -26,4 +30,7 @@ public class User {
 
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
+
+    public String getFamilyId() { return familyId; }
+    public void setFamilyId(String familyId) { this.familyId = familyId; }
 }

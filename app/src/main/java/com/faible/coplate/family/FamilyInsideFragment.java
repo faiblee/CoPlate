@@ -22,6 +22,8 @@ import com.faible.coplate.model.User;
 
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -115,7 +117,13 @@ public class FamilyInsideFragment extends Fragment {
                     // Передаем адаптеру информацию о владельце и текущем пользователе для кнопки исключения
                     memberAdapter.setCanKick(isOwner);
                     memberAdapter.setCurrentUserId(currentUserId);
-                    memberAdapter.setOnKickListener(userId -> kickMember(userId));
+                    memberAdapter.setOnKickListener(userId -> {
+                        if (!isOwner && currentUserId.equals(userId)) {
+                            leaveFamily();
+                            return;
+                        }
+                        kickMember(userId);
+                    });
                 }
             }
             @Override
@@ -126,9 +134,9 @@ public class FamilyInsideFragment extends Fragment {
     }
 
     private void kickMember(String userId) {
-        familyApi.kickMember(currentFamilyId, userId).enqueue(new Callback<List<String>>() {
+        familyApi.kickMember(currentFamilyId, createKickBody(userId)).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(requireContext(), "Участник исключен", Toast.LENGTH_SHORT).show();
                     loadMembers(); // Перезагружаем список
@@ -144,7 +152,7 @@ public class FamilyInsideFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(requireContext(), "Нет сети: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
@@ -201,9 +209,9 @@ public class FamilyInsideFragment extends Fragment {
 
     private void leaveFamily() {
         // Выход из семьи через kick с передачей своего ID
-        familyApi.kickMember(currentFamilyId, currentUserId).enqueue(new Callback<List<String>>() {
+        familyApi.kickMember(currentFamilyId, createKickBody(currentUserId)).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     // Очищаем локальные данные
                     SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
@@ -215,8 +223,11 @@ public class FamilyInsideFragment extends Fragment {
 
                     Toast.makeText(requireContext(), "Вы вышли из семьи", Toast.LENGTH_SHORT).show();
 
-                    // Возврат на экран выбора
-                    requireActivity().getSupportFragmentManager().popBackStack();
+                    // Надежно открываем экран выбора семьи после выхода
+                    requireActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.contentContainer, new FamilySelectFragment())
+                            .commit();
                 } else {
                     String errorMsg = "Ошибка выхода";
                     try {
@@ -229,9 +240,14 @@ public class FamilyInsideFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<String>> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(requireContext(), "Нет сети: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private RequestBody createKickBody(String userId) {
+        MediaType jsonType = MediaType.parse("application/json; charset=utf-8");
+        return RequestBody.create(userId, jsonType);
     }
 }

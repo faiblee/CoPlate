@@ -23,6 +23,9 @@ public class Catalog extends Fragment {
         ImageButton settingsBtn = view.findViewById(R.id.settingsButton);
         if (settingsBtn != null) {
             settingsBtn.setOnClickListener(v -> {
+                if (getChildFragmentManager().findFragmentByTag(SettingsDialogFragment.TAG) != null) {
+                    return;
+                }
                 // Создаем экземпляр диалога
                 SettingsDialogFragment dialog = new SettingsDialogFragment();
 
