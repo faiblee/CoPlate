@@ -72,6 +72,12 @@ public class FamilySelectFragment extends Fragment {
             return;
         }
 
+        String existingFamilyId = prefs.getString("family_id", null);
+        if (existingFamilyId != null) {
+            openFamilyScreen();
+            return;
+        }
+
         // 3. Логика кнопок переключения (раскрыть/скрыть)
         btnCreateToggle.setOnClickListener(v -> {
             boolean isVisible = createContent.getVisibility() == View.VISIBLE;

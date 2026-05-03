@@ -15,10 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faible.coplate.R;
-import com.faible.coplate.SettingsDialogFragment;
+import com.faible.coplate.family.MemberAdapter;
 import com.faible.coplate.api.FamilyApi;
 import com.faible.coplate.api.RetrofitClient;
-import com.faible.coplate.family.Family;
 import com.faible.coplate.model.User;
 
 import java.util.List;
@@ -40,6 +39,7 @@ public class FamilyInsideFragment extends Fragment {
     private String currentFamilyId;
     private String currentUserId;
     private String currentOwnerId;
+    private boolean isOwner = false;
 
     public FamilyInsideFragment() {
         super(R.layout.fragment_family_inside);
@@ -73,6 +73,7 @@ public class FamilyInsideFragment extends Fragment {
         );
         membersRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         membersRecyclerView.setAdapter(memberAdapter);
+        memberAdapter.setCurrentFamilyId(currentFamilyId);
 
         // Загрузка данных
         loadFamilyInfo();
@@ -82,7 +83,6 @@ public class FamilyInsideFragment extends Fragment {
         if (settingsButton != null) {
             settingsButton.setOnClickListener(v -> Toast.makeText(requireContext(), "Настройки", Toast.LENGTH_SHORT).show());
         }
-        initSettingsButton(view);
     }
 
     private void loadFamilyInfo() {
@@ -95,6 +95,7 @@ public class FamilyInsideFragment extends Fragment {
                         familyCodeText.setText(family.getInviteCode() != null ? family.getInviteCode() : "Нет кода");
                     }
                     currentOwnerId = family.getOwnerId();
+                    isOwner = currentUserId.equals(currentOwnerId);
                     setupActionButton();
                 }
             }
@@ -111,11 +112,40 @@ public class FamilyInsideFragment extends Fragment {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     memberAdapter.setMemberList(response.body());
+                    // Передаем адаптеру информацию о владельце и текущем пользователе для кнопки исключения
+                    memberAdapter.setCanKick(isOwner);
+                    memberAdapter.setCurrentUserId(currentUserId);
+                    memberAdapter.setOnKickListener(userId -> kickMember(userId));
                 }
             }
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
                 Toast.makeText(requireContext(), "Ошибка загрузки участников", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void kickMember(String userId) {
+        familyApi.kickMember(currentFamilyId, userId).enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(requireContext(), "Участник исключен", Toast.LENGTH_SHORT).show();
+                    loadMembers(); // Перезагружаем список
+                } else {
+                    String errorMsg = "Ошибка исключения";
+                    try {
+                        if (response.errorBody() != null) {
+                            errorMsg = response.errorBody().string();
+                        }
+                    } catch (Exception e) {}
+                    Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Toast.makeText(requireContext(), "Нет сети: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -133,38 +163,75 @@ public class FamilyInsideFragment extends Fragment {
             actionButton.setOnClickListener(v -> leaveFamily());
         }
     }
-    private void initSettingsButton(View view) {
-        ImageButton settingsBtn = view.findViewById(R.id.settingsButton);
-        if (settingsBtn != null) {
-            settingsBtn.setOnClickListener(v -> {
-                // Создаем экземпляр диалога
-                SettingsDialogFragment dialog = new SettingsDialogFragment();
-
-                // Показываем его.
-                // getChildFragmentManager() используется, если мы внутри фрагмента.
-                // Если бы мы были в Activity, использовали бы getSupportFragmentManager().
-                dialog.show(getChildFragmentManager(), SettingsDialogFragment.TAG);
-            });
-        }
-    }
 
     private void deleteFamily() {
-        // TODO: Вызов API удаления семьи (DELETE /api/families/{id})
-        Toast.makeText(requireContext(), "Функция удаления (владелец)", Toast.LENGTH_SHORT).show();
+        familyApi.deleteFamily(currentFamilyId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Очищаем локальные данные
+                    SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
+                    prefs.edit()
+                            .remove("family_id")
+                            .remove("family_name")
+                            .remove("family_invite_code")
+                            .apply();
+
+                    Toast.makeText(requireContext(), "Семья распущена", Toast.LENGTH_SHORT).show();
+
+                    // Возврат на экран выбора
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    String errorMsg = "Ошибка удаления";
+                    try {
+                        if (response.errorBody() != null) {
+                            errorMsg = response.errorBody().string();
+                        }
+                    } catch (Exception e) {}
+                    Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(requireContext(), "Нет сети: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void leaveFamily() {
-        // Очищаем локальные данные
-        SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
-        prefs.edit()
-                .remove("family_id")
-                .remove("family_name")
-                .remove("family_invite_code")
-                .apply();
+        // Выход из семьи через kick с передачей своего ID
+        familyApi.kickMember(currentFamilyId, currentUserId).enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.isSuccessful()) {
+                    // Очищаем локальные данные
+                    SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
+                    prefs.edit()
+                            .remove("family_id")
+                            .remove("family_name")
+                            .remove("family_invite_code")
+                            .apply();
 
-        Toast.makeText(requireContext(), "Вы вышли из семьи", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Вы вышли из семьи", Toast.LENGTH_SHORT).show();
 
-        // Возврат на экран выбора
-        requireActivity().getSupportFragmentManager().popBackStack();
+                    // Возврат на экран выбора
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    String errorMsg = "Ошибка выхода";
+                    try {
+                        if (response.errorBody() != null) {
+                            errorMsg = response.errorBody().string();
+                        }
+                    } catch (Exception e) {}
+                    Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                Toast.makeText(requireContext(), "Нет сети: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

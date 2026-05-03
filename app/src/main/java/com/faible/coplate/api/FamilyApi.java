@@ -29,4 +29,13 @@ public interface FamilyApi {
     // Получение кода приглашения (если он не приходит в основном объекте Family)
     @GET("api/families/{id}/invite_code")
     Call<String> getInviteCode(@Path("id") String id);
+
+    // Удаление семьи (только владелец)
+    @DELETE("api/families/{id}")
+    Call<Void> deleteFamily(@Path("id") String id);
+
+    // Исключение участника из семьи (только владелец)
+    @PUT("api/families/{id}/kick")
+    Call<List<String>> kickMember(@Path("id") String id, @Body String userId);
+
 }
