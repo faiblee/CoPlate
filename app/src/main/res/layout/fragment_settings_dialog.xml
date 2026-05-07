@@ -91,18 +91,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Кнопка-карандаш (справа на уровне лейбла) -->
-        <ImageButton
-            android:id="@+id/btnEditUsername"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_edit_pencil"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="#757575"
-            android:contentDescription="Редактировать имя пользователя"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvUsernameLabel"
-            app:layout_constraintBottom_toBottomOf="@id/tvUsernameLabel" />
 
         <!-- Поле ввода -->
         <EditText
@@ -144,19 +132,6 @@
             android:textColor="#666666"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Кнопка-карандаш (справа на уровне лейбла) -->
-        <ImageButton
-            android:id="@+id/btnEditName"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_edit_pencil"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="#757575"
-            android:contentDescription="Редактировать имя"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvNameLabel"
-            app:layout_constraintBottom_toBottomOf="@id/tvNameLabel" />
 
         <!-- Поле ввода -->
         <EditText

@@ -6,7 +6,7 @@
     <string name="meal_breakfast">Завтрак</string>
     <string name="meal_lunch">Обед</string>
     <string name="meal_dinner">Ужин</string>
-    <string name="add_custom_dish">Добавить своё блюдо</string>
+    <string name="add_custom_dish">Мои блюда</string>
     <string name="library_dishes">Библиотека блюд</string>
     <string name="suggestion_add_ingredients">После добавления блюда предложим добавить все необходимые ингредиенты в список покупок.</string>
     <string name="nav_today">День</string>
@@ -33,6 +33,12 @@
     <string name="add">Добавить</string>
     <string name="enter">Введите название товара</string>
     <string name="search_dish">Поиск блюда...</string>
+    <string name="my_dishes_title">Мои блюда</string>
+    <string name="add_new_dish">Добавить новое блюдо</string>
+    <string name="dish_name_hint">Название блюда</string>
+    <string name="dish_ingredients_hint">Ингредиенты через запятую</string>
+    <string name="save_dish">Сохранить блюдо</string>
+    <string name="back">Назад</string>
     <!---->
     <string name="create_family">Создайте семью или присоединитесь к уже существующей</string>
     <string name="Family">Семья</string>

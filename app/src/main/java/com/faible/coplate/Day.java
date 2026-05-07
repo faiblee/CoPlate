@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.faible.coplate.dishes.MyDishesFragment;
+
 public class Day extends Fragment {
 
     public Day() {
@@ -54,22 +56,27 @@ public class Day extends Fragment {
 
     private void initActionButtons(View view) {
         // Завтрак
-        view.findViewById(R.id.addCustomDishBreakfast).setOnClickListener(v ->
-                showToast("Добавление завтрака (заглушка)"));
+        view.findViewById(R.id.addCustomDishBreakfast).setOnClickListener(v -> openMyDishesScreen());
         view.findViewById(R.id.libraryBreakfast).setOnClickListener(v ->
                 showToast("Библиотека завтраков (заглушка)"));
 
         // Обед
-        view.findViewById(R.id.addCustomDishLunch).setOnClickListener(v ->
-                showToast("Добавление обеда (заглушка)"));
+        view.findViewById(R.id.addCustomDishLunch).setOnClickListener(v -> openMyDishesScreen());
         view.findViewById(R.id.libraryLunch).setOnClickListener(v ->
                 showToast("Библиотека обедов (заглушка)"));
 
         // Ужин
-        view.findViewById(R.id.addCustomDishDinner).setOnClickListener(v ->
-                showToast("Добавление ужина (заглушка)"));
+        view.findViewById(R.id.addCustomDishDinner).setOnClickListener(v -> openMyDishesScreen());
         view.findViewById(R.id.libraryDinner).setOnClickListener(v ->
                 showToast("Библиотека ужинов (заглушка)"));
+    }
+
+    private void openMyDishesScreen() {
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contentContainer, new MyDishesFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void initTrashButton(View view) {

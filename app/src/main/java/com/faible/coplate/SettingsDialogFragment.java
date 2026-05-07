@@ -36,8 +36,6 @@ public class SettingsDialogFragment extends DialogFragment {
     private EditText etName;
     private EditText etOldPassword;
     private EditText etNewPassword;
-    private ImageButton btnEditUsername;
-    private ImageButton btnEditName;
     private Button btnApply;
     private Button btnLogout;
     private RadioGroup themeGroup;
@@ -84,9 +82,6 @@ public class SettingsDialogFragment extends DialogFragment {
         etName = view.findViewById(R.id.etName);
         etOldPassword = view.findViewById(R.id.etOldPassword);
         etNewPassword = view.findViewById(R.id.etPassword); // В XML это поле называется etPassword
-
-        btnEditUsername = view.findViewById(R.id.btnEditUsername);
-        btnEditName = view.findViewById(R.id.btnEditName);
         btnApply = view.findViewById(R.id.btnApply);
         btnLogout = view.findViewById(R.id.btnLogout);
         themeGroup = view.findViewById(R.id.themeGroup);
@@ -137,9 +132,6 @@ public class SettingsDialogFragment extends DialogFragment {
     }
 
     private void setupListeners() {
-        // Карандаши просто переводят фокус на поле для редактирования
-        btnEditUsername.setOnClickListener(v -> etUsername.requestFocus());
-        btnEditName.setOnClickListener(v -> etName.requestFocus());
 
         // Кнопка "Применить" отправляет данные на сервер
         btnApply.setOnClickListener(v -> saveSettings());

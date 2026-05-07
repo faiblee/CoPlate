@@ -1,6 +1,8 @@
 package com.faible.coplate.family;
 
 import android.content.SharedPreferences;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faible.coplate.R;
+import com.faible.coplate.SettingsDialogFragment;
 import com.faible.coplate.family.MemberAdapter;
 import com.faible.coplate.api.FamilyApi;
 import com.faible.coplate.api.RetrofitClient;
@@ -42,6 +45,7 @@ public class FamilyInsideFragment extends Fragment {
     private String currentUserId;
     private String currentOwnerId;
     private boolean isOwner = false;
+    private String inviteCode;
 
     public FamilyInsideFragment() {
         super(R.layout.fragment_family_inside);
@@ -68,6 +72,7 @@ public class FamilyInsideFragment extends Fragment {
         membersRecyclerView = view.findViewById(R.id.membersRecyclerView);
         actionButton = view.findViewById(R.id.actionButton);
         settingsButton = view.findViewById(R.id.settingsButton);
+        setupFamilyCodeCopy();
 
         // Настройка RecyclerView
         memberAdapter = new MemberAdapter(user ->
@@ -79,11 +84,13 @@ public class FamilyInsideFragment extends Fragment {
 
         // Загрузка данных
         loadFamilyInfo();
-        loadMembers();
 
-        // Кнопка настроек (заглушка)
+        // Кнопка настроек
         if (settingsButton != null) {
-            settingsButton.setOnClickListener(v -> Toast.makeText(requireContext(), "Настройки", Toast.LENGTH_SHORT).show());
+            settingsButton.setOnClickListener(v -> {
+                SettingsDialogFragment dialog = new SettingsDialogFragment();
+                dialog.show(getChildFragmentManager(), SettingsDialogFragment.TAG);
+            });
         }
     }
 
@@ -93,18 +100,40 @@ public class FamilyInsideFragment extends Fragment {
             public void onResponse(Call<Family> call, Response<Family> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Family family = response.body();
+                    inviteCode = family.getInviteCode();
                     if (familyCodeText != null) {
-                        familyCodeText.setText(family.getInviteCode() != null ? family.getInviteCode() : "Нет кода");
+                        familyCodeText.setText(inviteCode != null ? inviteCode : "Нет кода");
                     }
                     currentOwnerId = family.getOwnerId();
                     isOwner = currentUserId.equals(currentOwnerId);
                     setupActionButton();
+                    loadMembers();
                 }
             }
             @Override
             public void onFailure(Call<Family> call, Throwable t) {
                 Toast.makeText(requireContext(), "Ошибка загрузки семьи", Toast.LENGTH_SHORT).show();
             }
+        });
+    }
+
+    private void setupFamilyCodeCopy() {
+        if (familyCodeText == null) return;
+        familyCodeText.setOnClickListener(v -> {
+            if (inviteCode == null || inviteCode.trim().isEmpty()) {
+                Toast.makeText(requireContext(), "Код приглашения недоступен", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ClipboardManager clipboard = (ClipboardManager) requireContext().getSystemService(requireContext().CLIPBOARD_SERVICE);
+            if (clipboard == null) {
+                Toast.makeText(requireContext(), "Не удалось скопировать код", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ClipData clip = ClipData.newPlainText("Invite code", inviteCode);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(requireContext(), "Код приглашения скопирован", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -163,11 +192,11 @@ public class FamilyInsideFragment extends Fragment {
 
         if (currentUserId.equals(currentOwnerId)) {
             actionButton.setText("Распустить семью");
-            actionButton.setTextColor(0xFFFF0000); // Красный
+            actionButton.setTextColor(0xFFFFFFFF);
             actionButton.setOnClickListener(v -> deleteFamily());
         } else {
             actionButton.setText("Покинуть семью");
-            actionButton.setTextColor(0xFF1F2A24); // Темный
+            actionButton.setTextColor(0xFFFFFFFF);
             actionButton.setOnClickListener(v -> leaveFamily());
         }
     }

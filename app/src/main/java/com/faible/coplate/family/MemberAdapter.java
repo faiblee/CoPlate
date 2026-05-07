@@ -91,19 +91,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
                 });
             }
         } else {
-            // Если текущий пользователь не владелец
-            if (user.getId().equals(currentUserId)) {
-                // Кнопка "Покинуть семью" (вызывает kick со своим ID)
-                holder.kickButton.setVisibility(View.VISIBLE);
-                holder.kickButton.setText("Покинуть семью");
-                holder.kickButton.setOnClickListener(v -> {
-                    if (kickListener != null) {
-                        kickListener.onKick(currentUserId);
-                    }
-                });
-            } else {
-                holder.kickButton.setVisibility(View.GONE);
-            }
+            // Для участников кнопку рядом с именем не показываем
+            holder.kickButton.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v -> {
