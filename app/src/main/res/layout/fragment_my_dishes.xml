@@ -67,6 +67,18 @@
             android:textColorHint="#9E9E9E" />
 
         <EditText
+            android:id="@+id/dishDescriptionInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:hint="@string/dish_description_hint"
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            android:textColor="#1F2A24"
+            android:textColorHint="#9E9E9E" />
+
+        <EditText
             android:id="@+id/dishIngredientsInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

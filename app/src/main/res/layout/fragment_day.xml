@@ -206,27 +206,22 @@
                     android:visibility="visible">
 
                     <Button
-                        android:id="@+id/addCustomDishBreakfast"
+                        android:id="@+id/addDishBreakfast"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
-                        android:text="@string/add_custom_dish"
+                        android:text="@string/add_meal_dish"
                         android:textColor="#1F2A24"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
 
-                    <Button
-                        android:id="@+id/libraryBreakfast"
+                    <LinearLayout
+                        android:id="@+id/breakfastDishesList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/action_button"
-                        android:backgroundTint="@null"
-                        android:text="@string/library_dishes"
-                        android:textColor="#1F2A24"
-                        android:textAllCaps="false"
-                        app:backgroundTint="@null" />
+                        android:orientation="vertical" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -262,27 +257,22 @@
                     android:visibility="gone">
 
                     <Button
-                        android:id="@+id/addCustomDishLunch"
+                        android:id="@+id/addDishLunch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
-                        android:text="@string/add_custom_dish"
+                        android:text="@string/add_meal_dish"
                         android:textColor="#1F2A24"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
 
-                    <Button
-                        android:id="@+id/libraryLunch"
+                    <LinearLayout
+                        android:id="@+id/lunchDishesList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/action_button"
-                        android:backgroundTint="@null"
-                        android:text="@string/library_dishes"
-                        android:textColor="#1F2A24"
-                        android:textAllCaps="false"
-                        app:backgroundTint="@null" />
+                        android:orientation="vertical" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -318,27 +308,22 @@
                     android:visibility="gone">
 
                     <Button
-                        android:id="@+id/addCustomDishDinner"
+                        android:id="@+id/addDishDinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
-                        android:text="@string/add_custom_dish"
+                        android:text="@string/add_meal_dish"
                         android:textColor="#1F2A24"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
 
-                    <Button
-                        android:id="@+id/libraryDinner"
+                    <LinearLayout
+                        android:id="@+id/dinnerDishesList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:background="@drawable/action_button"
-                        android:backgroundTint="@null"
-                        android:text="@string/library_dishes"
-                        android:textColor="#1F2A24"
-                        android:textAllCaps="false"
-                        app:backgroundTint="@null" />
+                        android:orientation="vertical" />
                 </LinearLayout>
             </LinearLayout>
 

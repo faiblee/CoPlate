@@ -11,19 +11,19 @@
     android:padding="12dp">
 
     <TextView
-        android:id="@+id/myDishName"
+        android:id="@+id/plannedDishName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#1F2A24"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/myDishIngredients"
+        android:id="@+id/plannedDishIngredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:textColor="#555555"
-        android:textSize="14sp" />
-
+        android:layout_marginTop="4dp"
+        android:textColor="#666666"
+        android:textSize="13sp"
+        android:visibility="gone" />
 </LinearLayout>

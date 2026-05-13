@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.api.UserApi;
 import com.faible.coplate.authentication.AuthActivity;
+import com.faible.coplate.dishes.MyDishesFragment;
 import com.faible.coplate.family.FamilyInsideFragment;
 import com.faible.coplate.family.FamilySelectFragment;
 import com.faible.coplate.model.User;
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         familyButton.setSelected(false);
         libraryButton.setSelected(false);
 
-        if (fragmentClass == Day.class) {
+        if (fragmentClass == Day.class || fragmentClass == MyDishesFragment.class) {
             todayButton.setSelected(true);
         } else if (fragmentClass == Shopping_list.class) {
             shoppingListButton.setSelected(true);
@@ -181,5 +182,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /** Переключение на вкладку каталога (из экрана «День» и др.). */
+    public void openCatalogTab() {
+        loadFragment(new Catalog(), true);
     }
 }
