@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * GET /api/families/{id}/dishes и GET /api/library: массив или объект с ключом списка (в т.ч. {@code library}).
+ * Разбор JSON списков блюд: семья ({@code GET /api/families/.../dishes}) и библиотека ({@code GET /api/library}).
  */
 public final class DishJsonParser {
 
@@ -20,6 +20,30 @@ public final class DishJsonParser {
     private static final Type DISH_LIST = new TypeToken<List<DishResponse>>() {}.getType();
 
     private DishJsonParser() {}
+
+    /**
+     * {@code GET /api/library}: корень — массив {@link DishResponse}, либо объект {@code { "library": [ ... ] }}.
+     */
+    public static List<DishResponse> parseLibraryList(JsonElement root) {
+        if (root == null || root.isJsonNull()) {
+            return Collections.emptyList();
+        }
+        if (root.isJsonArray()) {
+            List<DishResponse> parsed = GSON.fromJson(root, DISH_LIST);
+            return parsed != null ? parsed : Collections.emptyList();
+        }
+        if (root.isJsonObject()) {
+            JsonObject obj = root.getAsJsonObject();
+            if (obj.has("library")) {
+                JsonElement inner = obj.get("library");
+                if (inner != null && inner.isJsonArray()) {
+                    List<DishResponse> parsed = GSON.fromJson(inner, DISH_LIST);
+                    return parsed != null ? parsed : Collections.emptyList();
+                }
+            }
+        }
+        return parseFamilyDishes(root);
+    }
 
     public static List<DishResponse> parseFamilyDishes(JsonElement root) {
         if (root == null || root.isJsonNull()) {

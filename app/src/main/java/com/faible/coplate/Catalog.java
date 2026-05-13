@@ -99,14 +99,10 @@ public class Catalog extends Fragment implements CatalogDishAdapter.Listener {
                     Toast.makeText(requireContext(), R.string.catalog_load_failed, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                List<DishResponse> parsed = DishJsonParser.parseFamilyDishes(response.body());
+                List<DishResponse> parsed = DishJsonParser.parseLibraryList(response.body());
                 allDishes.clear();
                 for (DishResponse d : parsed) {
-                    if (d == null) {
-                        continue;
-                    }
-                    String src = d.getSource();
-                    if (src == null || "library".equalsIgnoreCase(src.trim())) {
+                    if (d != null) {
                         allDishes.add(d);
                     }
                 }
