@@ -1,5 +1,7 @@
 package com.faible.coplate.util;
 
+import androidx.annotation.Nullable;
+
 import com.faible.coplate.model.DishIngredientResponse;
 
 import java.util.List;
@@ -55,6 +57,27 @@ public final class IngredientTextFormatter {
             }
         }
         return builder.toString();
+    }
+
+    /**
+     * Строка вида «Мука 200 г, Яйцо 2 шт» → маркированный список для модалки, если нет структурированных ингредиентов.
+     */
+    public static String commaSeparatedToBulletLines(@Nullable String commaLine) {
+        if (commaLine == null || commaLine.trim().isEmpty()) {
+            return "";
+        }
+        String[] parts = commaLine.trim().split("\\s*,\\s*");
+        StringBuilder sb = new StringBuilder();
+        for (String p : parts) {
+            if (p == null || p.trim().isEmpty()) {
+                continue;
+            }
+            if (sb.length() > 0) {
+                sb.append('\n');
+            }
+            sb.append("• ").append(p.trim());
+        }
+        return sb.toString();
     }
 
     /** По одному ингредиенту на строку — для экрана подробностей блюда. */

@@ -183,7 +183,7 @@ public class Catalog extends Fragment implements CatalogDishAdapter.Listener {
             return;
         }
         String title = dish.getName();
-        LibraryDishDetailDialog.newInstance(id, title)
+        LibraryDishDetailDialog.newInstance(id, title, dish)
                 .show(getChildFragmentManager(), LibraryDishDetailDialog.TAG);
     }
 

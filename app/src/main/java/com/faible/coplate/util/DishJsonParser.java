@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Разбор JSON списков блюд: семья ({@code GET /api/families/.../dishes}) и библиотека ({@code GET /api/library}).
+ * Разбор JSON списков блюд: семья ({@code GET /api/families/.../dishes}) и библиотека ({@code GET /api/dishes/library}).
  */
 public final class DishJsonParser {
 
@@ -22,7 +22,7 @@ public final class DishJsonParser {
     private DishJsonParser() {}
 
     /**
-     * {@code GET /api/library}: корень — массив {@link DishResponse}, либо объект {@code { "library": [ ... ] }}.
+     * {@code GET /api/dishes/library}: корень — массив {@link DishResponse}, либо объект {@code { "library": [ ... ] }}.
      */
     public static List<DishResponse> parseLibraryList(JsonElement root) {
         if (root == null || root.isJsonNull()) {

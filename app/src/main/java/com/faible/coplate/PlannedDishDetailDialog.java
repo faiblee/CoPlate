@@ -35,6 +35,10 @@ public class PlannedDishDetailDialog extends DialogFragment {
     private static final String ARG_DISH_ID = "dishId";
     private static final String ARG_PLAN_ROW_ID = "planRowId";
     private static final String ARG_FALLBACK_TITLE = "fallbackTitle";
+    /** Описание из GET недели (DishInfoResponseWithMealPlan.description). */
+    private static final String ARG_MEAL_PLAN_DESCRIPTION = "mealPlanDescription";
+    /** Строка ингредиентов из списка дня (пока GET /dishes/{id} пустой). */
+    private static final String ARG_INGREDIENTS_COMMA = "ingredientsCommaLine";
     private static final String RESULT_KEY = "PlannedDishDetail_result";
 
     private TextView titleView;
@@ -44,19 +48,32 @@ public class PlannedDishDetailDialog extends DialogFragment {
     private Button removeButton;
     private boolean removeInProgress;
 
+    @Nullable
+    private String mealPlanDescriptionPrefill;
+    @Nullable
+    private String ingredientsCommaPrefill;
+
     /**
      * @param mealPlanRowId id строки MealPlan из поля planId в ответе недели; неположительное значение — без кнопки удаления
      */
     public static PlannedDishDetailDialog newInstance(
             long dishId,
             long mealPlanRowId,
-            @Nullable String fallbackTitle
+            @Nullable String fallbackTitle,
+            @Nullable String mealPlanDescription,
+            @Nullable String ingredientsCommaLine
     ) {
         PlannedDishDetailDialog d = new PlannedDishDetailDialog();
         Bundle b = new Bundle();
         b.putLong(ARG_DISH_ID, dishId);
         b.putLong(ARG_PLAN_ROW_ID, mealPlanRowId);
         b.putString(ARG_FALLBACK_TITLE, fallbackTitle);
+        if (mealPlanDescription != null) {
+            b.putString(ARG_MEAL_PLAN_DESCRIPTION, mealPlanDescription);
+        }
+        if (ingredientsCommaLine != null) {
+            b.putString(ARG_INGREDIENTS_COMMA, ingredientsCommaLine);
+        }
         d.setArguments(b);
         return d;
     }
@@ -94,6 +111,8 @@ public class PlannedDishDetailDialog extends DialogFragment {
         final long dishId = args.getLong(ARG_DISH_ID);
         final long planRowId = args.getLong(ARG_PLAN_ROW_ID);
         final String fallback = args.getString(ARG_FALLBACK_TITLE);
+        mealPlanDescriptionPrefill = args.getString(ARG_MEAL_PLAN_DESCRIPTION);
+        ingredientsCommaPrefill = args.getString(ARG_INGREDIENTS_COMMA);
 
         titleView = view.findViewById(R.id.plannedDetailTitle);
         ingredientsView = view.findViewById(R.id.plannedDetailIngredients);
@@ -123,7 +142,14 @@ public class PlannedDishDetailDialog extends DialogFragment {
                     bindDetails(response.body());
                 } else {
                     titleView.setText(fallback != null ? fallback : "?");
-                    ingredientsView.setText(getString(R.string.dish_no_ingredients));
+                    if (hasMeaningfulPrefill()) {
+                        showPrefilledBody();
+                    } else {
+                        ingredientsView.setText(getString(R.string.dish_no_ingredients));
+                        descriptionLabel.setVisibility(View.VISIBLE);
+                        descriptionView.setVisibility(View.VISIBLE);
+                        descriptionView.setText(getString(R.string.dish_no_description));
+                    }
                 }
             }
 
@@ -131,7 +157,11 @@ public class PlannedDishDetailDialog extends DialogFragment {
             public void onFailure(Call<DishResponse> call, Throwable t) {
                 if (isAdded()) {
                     titleView.setText(fallback != null ? fallback : "?");
-                    ingredientsView.setText(getString(R.string.dish_no_ingredients));
+                    if (hasMeaningfulPrefill()) {
+                        showPrefilledBody();
+                    } else {
+                        ingredientsView.setText(getString(R.string.dish_no_ingredients));
+                    }
                 }
             }
         });
@@ -191,12 +221,41 @@ public class PlannedDishDetailDialog extends DialogFragment {
         return b;
     }
 
+    private boolean hasMeaningfulPrefill() {
+        return (ingredientsCommaPrefill != null && !ingredientsCommaPrefill.trim().isEmpty())
+                || (mealPlanDescriptionPrefill != null && !mealPlanDescriptionPrefill.trim().isEmpty());
+    }
+
+    private void showPrefilledBody() {
+        String ingLines = "";
+        if (ingredientsCommaPrefill != null && !ingredientsCommaPrefill.trim().isEmpty()) {
+            ingLines = IngredientTextFormatter.commaSeparatedToBulletLines(ingredientsCommaPrefill);
+        }
+        if (ingLines.trim().isEmpty()) {
+            ingredientsView.setText(getString(R.string.dish_no_ingredients));
+        } else {
+            ingredientsView.setText(ingLines);
+        }
+        descriptionLabel.setVisibility(View.VISIBLE);
+        descriptionView.setVisibility(View.VISIBLE);
+        if (mealPlanDescriptionPrefill != null && !mealPlanDescriptionPrefill.trim().isEmpty()) {
+            descriptionView.setText(mealPlanDescriptionPrefill.trim());
+        } else {
+            descriptionView.setText(getString(R.string.dish_no_description));
+        }
+    }
+
     private void bindDetails(@NonNull DishResponse dish) {
         String name = dish.getName();
         if (name != null && !name.trim().isEmpty()) {
             titleView.setText(name);
         }
         String ingLines = IngredientTextFormatter.ingredientsAsBulletLines(dish.getIngredients());
+        if (ingLines.trim().isEmpty()
+                && ingredientsCommaPrefill != null
+                && !ingredientsCommaPrefill.trim().isEmpty()) {
+            ingLines = IngredientTextFormatter.commaSeparatedToBulletLines(ingredientsCommaPrefill);
+        }
         if (ingLines.trim().isEmpty()) {
             ingredientsView.setText(getString(R.string.dish_no_ingredients));
         } else {
@@ -204,13 +263,16 @@ public class PlannedDishDetailDialog extends DialogFragment {
         }
 
         String desc = dish.getDescription();
+        if (desc == null || desc.trim().isEmpty()) {
+            if (mealPlanDescriptionPrefill != null && !mealPlanDescriptionPrefill.trim().isEmpty()) {
+                desc = mealPlanDescriptionPrefill.trim();
+            }
+        }
+        descriptionLabel.setVisibility(View.VISIBLE);
+        descriptionView.setVisibility(View.VISIBLE);
         if (desc != null && !desc.trim().isEmpty()) {
-            descriptionLabel.setVisibility(View.VISIBLE);
-            descriptionView.setVisibility(View.VISIBLE);
             descriptionView.setText(desc.trim());
         } else {
-            descriptionLabel.setVisibility(View.VISIBLE);
-            descriptionView.setVisibility(View.VISIBLE);
             descriptionView.setText(getString(R.string.dish_no_description));
         }
     }

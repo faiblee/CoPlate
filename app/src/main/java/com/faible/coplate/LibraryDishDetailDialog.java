@@ -21,6 +21,8 @@ import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.model.DishResponse;
 import com.faible.coplate.util.IngredientTextFormatter;
 
+import com.google.gson.Gson;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,13 +32,24 @@ public class LibraryDishDetailDialog extends DialogFragment {
     public static final String TAG = "LibraryDishDetail";
     private static final String ARG_DISH_ID = "dishId";
     private static final String ARG_FALLBACK_TITLE = "fallbackTitle";
+    /** JSON снимка блюда из списка каталога — подставляем поля, если GET /dishes/{id} пустой. */
+    private static final String ARG_LIST_DISH_JSON = "listDishJson";
+
+    private static final Gson GSON = new Gson();
 
     @NonNull
-    public static LibraryDishDetailDialog newInstance(long dishId, @Nullable String fallbackTitle) {
+    public static LibraryDishDetailDialog newInstance(
+            long dishId,
+            @Nullable String fallbackTitle,
+            @Nullable DishResponse listDishSnapshot
+    ) {
         LibraryDishDetailDialog d = new LibraryDishDetailDialog();
         Bundle b = new Bundle();
         b.putLong(ARG_DISH_ID, dishId);
         b.putString(ARG_FALLBACK_TITLE, fallbackTitle);
+        if (listDishSnapshot != null) {
+            b.putString(ARG_LIST_DISH_JSON, GSON.toJson(listDishSnapshot));
+        }
         d.setArguments(b);
         return d;
     }
@@ -57,6 +70,7 @@ public class LibraryDishDetailDialog extends DialogFragment {
         }
         long dishId = args.getLong(ARG_DISH_ID);
         String fallback = args.getString(ARG_FALLBACK_TITLE);
+        @Nullable DishResponse listSnapshot = readListSnapshot(args);
 
         TextView titleView = view.findViewById(R.id.libraryDetailTitle);
         TextView ingredientsView = view.findViewById(R.id.libraryDetailIngredients);
@@ -77,7 +91,11 @@ public class LibraryDishDetailDialog extends DialogFragment {
                     return;
                 }
                 if (response.isSuccessful() && response.body() != null) {
-                    bindDetails(titleView, ingredientsView, descriptionLabel, descriptionView, response.body());
+                    DishResponse merged = response.body();
+                    merged.mergeMissingFrom(listSnapshot);
+                    bindDetails(titleView, ingredientsView, descriptionLabel, descriptionView, merged);
+                } else if (listSnapshot != null) {
+                    bindDetails(titleView, ingredientsView, descriptionLabel, descriptionView, listSnapshot);
                 } else {
                     titleView.setText(fallback != null ? fallback : "?");
                     ingredientsView.setText(getString(R.string.dish_no_ingredients));
@@ -90,6 +108,10 @@ public class LibraryDishDetailDialog extends DialogFragment {
             @Override
             public void onFailure(Call<DishResponse> call, Throwable t) {
                 if (isAdded()) {
+                    if (listSnapshot != null) {
+                        bindDetails(titleView, ingredientsView, descriptionLabel, descriptionView, listSnapshot);
+                        return;
+                    }
                     titleView.setText(fallback != null ? fallback : "?");
                     ingredientsView.setText(getString(R.string.network_error_simple) + t.getMessage());
                 }
@@ -97,6 +119,19 @@ public class LibraryDishDetailDialog extends DialogFragment {
         });
 
         closeButton.setOnClickListener(v -> dismiss());
+    }
+
+    @Nullable
+    private DishResponse readListSnapshot(@NonNull Bundle args) {
+        String json = args.getString(ARG_LIST_DISH_JSON);
+        if (json == null || json.trim().isEmpty()) {
+            return null;
+        }
+        try {
+            return GSON.fromJson(json, DishResponse.class);
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     private void bindDetails(

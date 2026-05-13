@@ -298,19 +298,28 @@ public class Day extends Fragment {
             Long dishId = parseDishId(dish);
             Long planRowId = dish.getMealPlanRowId();
             long planRowArg = planRowId != null ? planRowId : 0L;
-            if (dishId != null) {
-                row.setOnClickListener(v ->
-                        PlannedDishDetailDialog.newInstance(dishId, planRowArg, label)
-                                .show(getChildFragmentManager(), PlannedDishDetailDialog.TAG));
-            }
+            final String planDescription = dish.getDescription();
 
             if (dishId == null) {
                 container.addView(row);
                 continue;
             }
+
+            final String[] ingredientsLineHolder = new String[] { null };
+            row.setOnClickListener(v ->
+                    PlannedDishDetailDialog.newInstance(
+                                    dishId,
+                                    planRowArg,
+                                    label,
+                                    planDescription,
+                                    ingredientsLineHolder[0])
+                            .show(getChildFragmentManager(), PlannedDishDetailDialog.TAG));
+
             DishResponse cached = dishDetailCache.get(dishId);
             if (cached != null) {
                 bindPlannedIngredients(ingTv, cached);
+                String line = IngredientTextFormatter.fromIngredients(cached.getIngredients());
+                ingredientsLineHolder[0] = line.trim().isEmpty() ? null : line;
                 container.addView(row);
                 continue;
             }
@@ -325,6 +334,8 @@ public class Day extends Fragment {
                     if (response.isSuccessful() && response.body() != null) {
                         putDishCache(dishId, response.body());
                         bindPlannedIngredients(ingTv, response.body());
+                        String line = IngredientTextFormatter.fromIngredients(response.body().getIngredients());
+                        ingredientsLineHolder[0] = line.trim().isEmpty() ? null : line;
                     }
                 }
 

@@ -16,6 +16,9 @@ public class MealPlanDishRef {
     private Object planId;
     @SerializedName(value = "name", alternate = {"dishName", "title"})
     private String name;
+    /** Есть в DishInfoResponseWithMealPlan при GET недели; для подстановки в карточку блюда. */
+    @SerializedName(value = "description", alternate = {"desc"})
+    private String description;
 
     public String getId() {
         if (id == null) {
@@ -29,6 +32,11 @@ public class MealPlanDishRef {
 
     public String getName() {
         return name;
+    }
+
+    @Nullable
+    public String getDescription() {
+        return description;
     }
 
     /** @return id записи плана приёма пищи или null, если в JSON нет planId */

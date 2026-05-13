@@ -33,6 +33,25 @@ public class DishResponse {
         ingredients = new ArrayList<>(list);
     }
 
+    /**
+     * Дополняет ответ GET /dishes/{id} данными из списка/плана, если сервер вернул пустые поля
+     * (часто из‑за расхождения схемы или ленивой загрузки на бэкенде).
+     */
+    public void mergeMissingFrom(@Nullable DishResponse other) {
+        if (other == null) {
+            return;
+        }
+        if (getIngredients().isEmpty()) {
+            replaceIngredients(other.getIngredients());
+        }
+        if (description == null || description.trim().isEmpty()) {
+            String d = other.getDescription();
+            if (d != null && !d.trim().isEmpty()) {
+                description = d.trim();
+            }
+        }
+    }
+
     public String getId() {
         if (id == null) {
             return null;
