@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.faible.coplate.R;
 import com.faible.coplate.api.DishApi;
 import com.faible.coplate.api.MealPlanApi;
+import com.faible.coplate.api.PurchaseApi;
 import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.model.DishCreateRequest;
 import com.faible.coplate.model.DishIngredientRequest;
 import com.faible.coplate.model.DishResponse;
 import com.faible.coplate.model.MealPlanAddRequest;
+import com.faible.coplate.model.PurchaseResponse;
 import com.faible.coplate.util.DishJsonParser;
 
 import com.google.gson.JsonElement;
@@ -35,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MyDishesFragment extends Fragment {
+public class MyDishesFragment extends Fragment implements MyDishesAdapter.MyDishesActionListener {
 
     public static final String ARG_MEAL_TYPE = "meal_type";
     public static final String ARG_DAY_OF_WEEK = "day_of_week";
@@ -52,6 +55,7 @@ public class MyDishesFragment extends Fragment {
     private MyDishesAdapter adapter;
     private DishApi dishApi;
     private MealPlanApi mealPlanApi;
+    private PurchaseApi purchaseApi;
     private String familyId;
     private String userId;
     private boolean isSaving = false;
@@ -60,10 +64,7 @@ public class MyDishesFragment extends Fragment {
         super(R.layout.fragment_my_dishes);
     }
 
-    /**
-     * @param mealType  breakfast | lunch | dinner (как на backend); null — только сохранить в «Мои блюда»
-     * @param dayOfWeek 1..7 (пн..вс), значение игнорируется если mealType null
-     */
+
     public static MyDishesFragment newInstance(@Nullable String mealType, int dayOfWeek) {
         MyDishesFragment f = new MyDishesFragment();
         Bundle b = new Bundle();
@@ -81,6 +82,7 @@ public class MyDishesFragment extends Fragment {
 
         dishApi = RetrofitClient.getClient(requireContext()).create(DishApi.class);
         mealPlanApi = RetrofitClient.getClient(requireContext()).create(MealPlanApi.class);
+        purchaseApi = RetrofitClient.getClient(requireContext()).create(PurchaseApi.class);
         SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
         familyId = prefs.getString("family_id", null);
         userId = prefs.getString("user_id", null);
@@ -94,7 +96,7 @@ public class MyDishesFragment extends Fragment {
         dishIngredientsInput = view.findViewById(R.id.dishIngredientsInput);
         backButton = view.findViewById(R.id.backButton);
 
-        adapter = new MyDishesAdapter(this::onMyDishRowClick);
+        adapter = new MyDishesAdapter(this);
         dishesRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         dishesRecyclerView.setAdapter(adapter);
 
@@ -105,8 +107,8 @@ public class MyDishesFragment extends Fragment {
         loadMyDishes();
     }
 
-    /** Список семьи (/families/{id}/dishes) отдаёт только DishInfo без ингредиентов — подгружаем полное блюдо. */
-    private void onMyDishRowClick(@NonNull DishResponse dish) {
+    @Override
+    public void onDishOpenForPlan(@NonNull DishResponse dish) {
         Bundle args = getArguments();
         String mealType = args != null ? args.getString(ARG_MEAL_TYPE) : null;
         int dow = args != null ? args.getInt(ARG_DAY_OF_WEEK, -1) : -1;
@@ -143,14 +145,88 @@ public class MyDishesFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onAddIngredientsToShopping(@NonNull DishResponse dish) {
+        if (familyId == null || familyId.trim().isEmpty()) {
+            Toast.makeText(requireContext(), R.string.family_required_for_plan, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Long id = parseDishId(dish);
+        if (id == null) {
+            Toast.makeText(requireContext(), R.string.dish_add_to_plan_failed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        purchaseApi.addPurchasesFromDish(familyId.trim(), id).enqueue(new Callback<List<PurchaseResponse>>() {
+            @Override
+            public void onResponse(Call<List<PurchaseResponse>> call, Response<List<PurchaseResponse>> response) {
+                if (!isAdded()) {
+                    return;
+                }
+                if (response.isSuccessful() && response.body() != null) {
+                    int n = response.body().size();
+                    if (n == 0) {
+                        Toast.makeText(requireContext(), R.string.no_ingredients_to_add_shopping, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(requireContext(), getString(R.string.ingredients_added_to_shopping, n), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(requireContext(), R.string.ingredients_to_shopping_failed, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PurchaseResponse>> call, Throwable t) {
+                if (isAdded()) {
+                    Toast.makeText(requireContext(), getString(R.string.network_error_simple) + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onDeleteDish(@NonNull DishResponse dish) {
+        Long id = parseDishId(dish);
+        if (id == null) {
+            Toast.makeText(requireContext(), R.string.dish_delete_failed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String title = dish.getName() != null && !dish.getName().trim().isEmpty()
+                ? dish.getName().trim()
+                : getString(R.string.my_dishes_title);
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.delete_dish_dialog_title)
+                .setMessage(getString(R.string.delete_dish_confirm_message, title))
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.delete, (dialog, which) -> dishApi.deleteDish(id).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (!isAdded()) {
+                            return;
+                        }
+                        if (response.isSuccessful()) {
+                            adapter.removeDishById(dish.getId());
+                            Toast.makeText(requireContext(), R.string.dish_deleted, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(requireContext(), R.string.dish_delete_failed, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        if (isAdded()) {
+                            Toast.makeText(requireContext(), getString(R.string.network_error_simple) + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }))
+                .show();
+    }
+
     private void toggleAddPanel() {
         boolean visible = addDishPanel.getVisibility() == View.VISIBLE;
         addDishPanel.setVisibility(visible ? View.GONE : View.VISIBLE);
     }
 
-    /**
-     * Семейные «свои» рецепты: все блюда семьи с source custom (любой автор), не только текущий пользователь.
-     */
+
     private boolean includeInMyDishes(DishResponse dish) {
         if (dish == null) {
             return false;

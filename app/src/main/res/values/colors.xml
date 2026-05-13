@@ -6,4 +6,18 @@
     <color name="text_green">#258B4E</color>
     <color name="main_green">#BFF3D6</color>
 
+    <!-- Material 3: зелёная схема вместо фиолетового accent по умолчанию -->
+    <color name="md_primary">#3A873C</color>
+    <color name="md_on_primary">#FFFFFF</color>
+    <color name="md_primary_container">#C8F2D9</color>
+    <color name="md_on_primary_container">#0F3D1A</color>
+    <color name="md_secondary">#258B4E</color>
+    <color name="md_on_secondary">#FFFFFF</color>
+    <color name="md_secondary_container">#E7FAEF</color>
+    <color name="md_on_secondary_container">#1F2A24</color>
+    <color name="md_tertiary">#388E3C</color>
+    <color name="md_on_tertiary">#FFFFFF</color>
+    <color name="md_tertiary_container">#DFF3E6</color>
+    <color name="md_on_tertiary_container">#0F3D1A</color>
+
 </resources>

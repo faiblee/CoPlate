@@ -43,7 +43,6 @@
         android:maxLines="1"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Список блюд -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/catalogRecyclerView"
         android:layout_width="match_parent"

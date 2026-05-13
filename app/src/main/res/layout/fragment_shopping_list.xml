@@ -11,7 +11,6 @@
         android:background="#FFFFFF"
         android:paddingBottom="16dp">
 
-        <!-- Кнопка редактирования -->
         <ImageButton
             android:id="@+id/editButton"
             android:layout_width="50dp"
@@ -23,7 +22,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Заголовок -->
         <TextView
             android:id="@+id/titleText"
             android:layout_width="0dp"
@@ -38,7 +36,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/editButton"/>
 
-        <!-- Кнопка настроек -->
         <ImageButton
             android:id="@+id/settingsButton"
             android:layout_width="50dp"
@@ -50,7 +47,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <!-- Панель добавления -->
         <LinearLayout
             android:id="@+id/addPanel"
             android:layout_width="match_parent"

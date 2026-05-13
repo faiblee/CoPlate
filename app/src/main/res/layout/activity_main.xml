@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- Контейнер для фрагментов (МЕНЯЕТСЯ) -->
     <FrameLayout
         android:id="@+id/contentContainer"
         android:layout_width="0dp"
@@ -21,7 +20,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Нижняя навигация (НЕ МЕНЯЕТСЯ) -->
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
@@ -34,7 +32,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Кнопка "Сегодня" -->
         <LinearLayout
             android:id="@+id/todayButton"
             android:layout_width="0dp"
@@ -63,7 +60,6 @@
                 android:textAllCaps="false" />
         </LinearLayout>
 
-        <!-- Кнопка "Список покупок" -->
         <LinearLayout
             android:id="@+id/shoppingListButton"
             android:layout_width="0dp"
@@ -92,7 +88,6 @@
                 android:textAllCaps="false" />
         </LinearLayout>
 
-        <!-- Кнопка "Семья" -->
         <LinearLayout
             android:id="@+id/familyButton"
             android:layout_width="0dp"
@@ -121,7 +116,6 @@
                 android:textAllCaps="false" />
         </LinearLayout>
 
-        <!-- Кнопка "Библиотека" -->
         <LinearLayout
             android:id="@+id/libraryButton"
             android:layout_width="0dp"

@@ -46,7 +46,6 @@
         app:layout_constraintVertical_bias="0.25"
         />
 
-    <!-- Кнопка "Зарегистрироваться" -->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"

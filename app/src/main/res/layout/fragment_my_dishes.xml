@@ -44,7 +44,7 @@
         android:backgroundTint="@null"
         android:text="@string/add_new_dish"
         android:textAllCaps="false"
-        android:textColor="#1F2A24" />
+        android:textColor="#FFFFFF" />
 
     <LinearLayout
         android:id="@+id/addDishPanel"
@@ -54,7 +54,7 @@
         android:background="@drawable/action_button"
         android:orientation="vertical"
         android:padding="12dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/dishNameInput"
@@ -99,7 +99,7 @@
             android:backgroundTint="@null"
             android:text="@string/save_dish"
             android:textAllCaps="false"
-            android:textColor="#258B4E" />
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

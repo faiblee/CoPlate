@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Хедер с днями недели и кнопкой настроек -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +31,6 @@
             android:src="@drawable/settings" />
     </LinearLayout>
 
-    <!-- RadioGroup дней недели -->
     <RadioGroup
         android:id="@+id/dayGroup"
         android:layout_width="match_parent"
@@ -135,7 +133,6 @@
             android:textSize="14sp" />
     </RadioGroup>
 
-    <!-- Заголовок "Меню на сегодня" + кнопка удаления -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -161,7 +158,6 @@
             android:contentDescription="@string/delete"/>
     </LinearLayout>
 
-    <!-- ScrollView с приёмами пищи -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -174,7 +170,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- ЗАВТРАК -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -225,7 +220,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- ОБЕД -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -276,7 +270,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- УЖИН -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -327,7 +320,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Подсказка для покупок -->
             <TextView
                 android:id="@+id/shoppingSuggestion"
                 android:layout_width="match_parent"

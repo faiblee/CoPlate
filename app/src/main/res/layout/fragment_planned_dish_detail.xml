@@ -77,7 +77,7 @@
             android:backgroundTint="@null"
             android:text="@string/close"
             android:textAllCaps="false"
-            android:textColor="#1F2A24" />
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/plannedDetailRemove"

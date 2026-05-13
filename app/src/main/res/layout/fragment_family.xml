@@ -7,14 +7,12 @@
     android:orientation="vertical"
     tools:context=".Family">
 
-    <!-- Хедер -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!-- Заголовок по центру -->
         <TextView
 
             android:layout_width="0dp"
@@ -26,7 +24,6 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Кнопка справа -->
         <ImageButton
             android:id="@+id/settingsButton"
             android:layout_width="50dp"
@@ -46,7 +43,6 @@
         android:textColor="#666666"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="10dp" />
-    <!-- Кнопка "Создать семью" -->
     <Button
         android:id="@+id/createFamilyButton"
         android:layout_width="match_parent"
@@ -63,7 +59,6 @@
         android:layout_marginBottom="12dp"
         app:backgroundTint="@null"
         />
-    <!-- Раскрывающийся контент для "Создать семью" -->
     <LinearLayout
         android:id="@+id/createFamilyContent"
         android:layout_width="match_parent"
@@ -100,7 +95,6 @@
 
     </LinearLayout>
 
-    <!-- Кнопка "Присоединиться" -->
     <Button
         android:id="@+id/joinFamilyButton"
         android:layout_width="match_parent"
@@ -117,7 +111,6 @@
         android:layout_marginBottom="12dp"
         app:backgroundTint="@null"/>
 
-    <!-- Раскрывающийся контент для "Присоединиться" -->
     <LinearLayout
         android:id="@+id/joinFamilyContent"
         android:layout_width="match_parent"
@@ -153,8 +146,5 @@
             app:backgroundTint="@null"/>
 
     </LinearLayout>
-
-
-
 
     </LinearLayout>

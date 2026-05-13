@@ -40,4 +40,10 @@ public interface PurchaseApi {
             @Path("familyId") String familyId,
             @Path("purchaseId") String purchaseId
     );
+
+    @POST("api/families/{familyId}/purchases/add-purchases-from-dish/{dishId}")
+    Call<List<PurchaseResponse>> addPurchasesFromDish(
+            @Path("familyId") String familyId,
+            @Path("dishId") long dishId
+    );
 }

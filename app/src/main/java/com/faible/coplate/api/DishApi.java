@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -24,4 +25,7 @@ public interface DishApi {
 
     @GET("api/dishes/library")
     Call<JsonElement> getLibraryDishes();
+
+    @DELETE("api/dishes/{id}")
+    Call<Void> deleteDish(@Path("id") long id);
 }

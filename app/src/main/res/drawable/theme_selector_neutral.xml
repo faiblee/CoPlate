@@ -5,7 +5,7 @@
     <!-- Это будет фон для активной кнопки (например, "Тёмная") -->
     <item android:state_checked="true">
         <shape android:shape="rectangle">
-            <solid android:color="#404040" /> <!-- Темно-серый фон -->
+            <solid android:color="#3A873C" /> <!-- Темно-серый фон -->
             <corners android:radius="8dp" />
         </shape>
     </item>

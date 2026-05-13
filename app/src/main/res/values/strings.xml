@@ -45,7 +45,7 @@
     <string name="dish_no_ingredients">Ингредиенты не указаны</string>
     <string name="dish_no_description">Описание не указано</string>
     <string name="close">Закрыть</string>
-    <string name="remove_dish_from_plan">Удалить из плана</string>
+    <string name="remove_dish_from_plan">Удалить</string>
     <string name="dish_removed_from_plan">Блюдо убрано из меню</string>
     <string name="dish_remove_from_plan_failed">Не удалось удалить блюдо из плана</string>
     <string name="loading_dish_details">Загрузка…</string>
@@ -89,6 +89,14 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="add_ingredients_to_shopping">В список покупок</string>
+    <string name="ingredients_added_to_shopping">Добавлено в список покупок: %d</string>
+    <string name="ingredients_to_shopping_failed">Не удалось добавить ингредиенты в список</string>
+    <string name="no_ingredients_to_add_shopping">В блюде нет ингредиентов для списка</string>
+    <string name="delete_dish_dialog_title">Удалить блюдо?</string>
+    <string name="delete_dish_confirm_message">Удалить «%s» из моих блюд? Действие нельзя отменить.</string>
+    <string name="dish_deleted">Блюдо удалено</string>
+    <string name="dish_delete_failed">Не удалось удалить блюдо</string>
 
 
 </resources>

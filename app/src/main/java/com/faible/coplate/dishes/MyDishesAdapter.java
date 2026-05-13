@@ -3,6 +3,9 @@ package com.faible.coplate.dishes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,16 +21,20 @@ import java.util.List;
 
 public class MyDishesAdapter extends RecyclerView.Adapter<MyDishesAdapter.ViewHolder> {
 
-    public interface OnMyDishClickListener {
-        void onMyDishClick(@NonNull DishResponse dish);
+    public interface MyDishesActionListener {
+        void onDishOpenForPlan(@NonNull DishResponse dish);
+
+        void onAddIngredientsToShopping(@NonNull DishResponse dish);
+
+        void onDeleteDish(@NonNull DishResponse dish);
     }
 
     private final List<DishResponse> dishes = new ArrayList<>();
-    @Nullable
-    private final OnMyDishClickListener clickListener;
+    @NonNull
+    private final MyDishesActionListener actionListener;
 
-    public MyDishesAdapter(@Nullable OnMyDishClickListener clickListener) {
-        this.clickListener = clickListener;
+    public MyDishesAdapter(@NonNull MyDishesActionListener actionListener) {
+        this.actionListener = actionListener;
     }
 
     public void setDishes(List<DishResponse> newDishes) {
@@ -48,6 +55,19 @@ public class MyDishesAdapter extends RecyclerView.Adapter<MyDishesAdapter.ViewHo
         notifyItemInserted(dishes.size() - 1);
     }
 
+    public void removeDishById(@Nullable String dishId) {
+        if (dishId == null) {
+            return;
+        }
+        for (int i = dishes.size() - 1; i >= 0; i--) {
+            if (dishId.equals(dishes.get(i).getId())) {
+                dishes.remove(i);
+                notifyItemRemoved(i);
+                return;
+            }
+        }
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,15 +80,29 @@ public class MyDishesAdapter extends RecyclerView.Adapter<MyDishesAdapter.ViewHo
         DishResponse dish = dishes.get(position);
         holder.dishName.setText(dish.getName() != null ? dish.getName() : "Без названия");
         holder.ingredients.setText(formatIngredients(dish));
-        holder.itemView.setOnClickListener(v -> {
-            if (clickListener == null) {
-                return;
-            }
+
+        holder.dishClickableArea.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
             if (pos == RecyclerView.NO_POSITION || pos >= dishes.size()) {
                 return;
             }
-            clickListener.onMyDishClick(dishes.get(pos));
+            actionListener.onDishOpenForPlan(dishes.get(pos));
+        });
+
+        holder.addToShoppingButton.setOnClickListener(v -> {
+            int pos = holder.getAdapterPosition();
+            if (pos == RecyclerView.NO_POSITION || pos >= dishes.size()) {
+                return;
+            }
+            actionListener.onAddIngredientsToShopping(dishes.get(pos));
+        });
+
+        holder.deleteButton.setOnClickListener(v -> {
+            int pos = holder.getAdapterPosition();
+            if (pos == RecyclerView.NO_POSITION || pos >= dishes.size()) {
+                return;
+            }
+            actionListener.onDeleteDish(dishes.get(pos));
         });
     }
 
@@ -82,13 +116,19 @@ public class MyDishesAdapter extends RecyclerView.Adapter<MyDishesAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        final LinearLayout dishClickableArea;
         final TextView dishName;
         final TextView ingredients;
+        final Button addToShoppingButton;
+        final ImageButton deleteButton;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            dishClickableArea = itemView.findViewById(R.id.dishClickableArea);
             dishName = itemView.findViewById(R.id.myDishName);
             ingredients = itemView.findViewById(R.id.myDishIngredients);
+            addToShoppingButton = itemView.findViewById(R.id.btnAddIngredientsToShopping);
+            deleteButton = itemView.findViewById(R.id.btnDeleteMyDish);
         }
     }
 }
