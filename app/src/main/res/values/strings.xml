@@ -69,6 +69,7 @@
     <string name="could_not_clear_menu">Не удалось очистить меню</string>
     <string name="network_error_simple">Ошибка сети: </string>
     <string name="could_not_add_dish_to_plan">Блюдо сохранено, не удалось добавить в меню дня</string>
+    <string name="dish_saved_to_my_dishes">Блюдо сохранено в «Мои блюда». Чтобы добавить его в меню на день, нажмите на блюдо в списке.</string>
     <string name="need_meal_context_for_plan">Откройте экран через кнопку «Мои блюда» у приёма пищи на дне</string>
     <string name="dish_added_to_meal">Блюдо добавлено в меню</string>
     <string name="dish_add_to_plan_failed">Не удалось добавить блюдо в меню</string>

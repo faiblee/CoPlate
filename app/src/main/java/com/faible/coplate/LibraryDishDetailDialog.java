@@ -91,7 +91,7 @@ public class LibraryDishDetailDialog extends DialogFragment {
             public void onFailure(Call<DishResponse> call, Throwable t) {
                 if (isAdded()) {
                     titleView.setText(fallback != null ? fallback : "?");
-                    ingredientsView.setText(getString(R.string.dish_no_ingredients));
+                    ingredientsView.setText(getString(R.string.network_error_simple) + t.getMessage());
                 }
             }
         });

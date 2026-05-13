@@ -14,11 +14,12 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <!-- Фиксированная высота: wrap_content + maxHeight у ScrollView в диалоге даёт нулевую высоту контента на части устройств. -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="360dp"
         android:layout_marginTop="12dp"
-        android:maxHeight="380dp"
+        android:fillViewport="true"
         android:overScrollMode="never">
 
         <LinearLayout

@@ -6,7 +6,7 @@ public class DishIngredientResponse {
     @SerializedName(value = "name", alternate = {"ingredient_name", "ingredientName", "title"})
     private String name;
     @SerializedName(value = "quantity", alternate = {"qty", "amount"})
-    private double quantity;
+    private Double quantity;
     @SerializedName(value = "unit", alternate = {"measure", "measurement"})
     private String unit;
 
@@ -15,7 +15,7 @@ public class DishIngredientResponse {
     }
 
     public double getQuantity() {
-        return quantity;
+        return quantity != null ? quantity : 0.0;
     }
 
     public String getUnit() {

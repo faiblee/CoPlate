@@ -130,8 +130,8 @@ public class Day extends Fragment {
     private void showAddDishChooser(String mealType) {
         new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.add_dish_dialog_title)
-                .setNegativeButton(R.string.add_custom_dish, (d, w) -> openMyDishesScreen(mealType))
-                .setPositiveButton(R.string.library_dishes, (d, w) -> openLibraryTabFromDay())
+                .setPositiveButton(R.string.add_custom_dish, (d, w) -> openMyDishesScreen(mealType))
+                .setNegativeButton(R.string.library_dishes, (d, w) -> openLibraryTabFromDay())
                 .show();
     }
 

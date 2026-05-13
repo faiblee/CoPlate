@@ -104,6 +104,15 @@ public class MyDishesFragment extends Fragment implements MyDishesAdapter.MyDish
         addDishToggleButton.setOnClickListener(v -> toggleAddPanel());
         saveDishButton.setOnClickListener(v -> saveDish());
 
+        Bundle args = getArguments();
+        boolean fromDayMealPlan = args != null
+                && args.getString(ARG_MEAL_TYPE) != null
+                && args.getInt(ARG_DAY_OF_WEEK, -1) >= 1
+                && args.getInt(ARG_DAY_OF_WEEK, -1) <= 7;
+        if (fromDayMealPlan) {
+            addDishPanel.setVisibility(View.GONE);
+        }
+
         loadMyDishes();
     }
 
@@ -369,49 +378,14 @@ public class MyDishesFragment extends Fragment implements MyDishesAdapter.MyDish
                     return;
                 }
 
-                DishResponse created = response.body();
-                String dishId = created.getId();
-                Bundle args = getArguments();
-                String mealType = args != null ? args.getString(ARG_MEAL_TYPE) : null;
-                int dow = args != null ? args.getInt(ARG_DAY_OF_WEEK, -1) : -1;
-
-                if (mealType != null && dow >= 1 && dow <= 7 && dishId != null && !dishId.trim().isEmpty()) {
-                    mealPlanApi.addDishToPlan(familyId, new MealPlanAddRequest(dishId.trim(), dow, mealType)).enqueue(new Callback<Void>() {
-                        @Override
-                        public void onResponse(Call<Void> call2, Response<Void> response2) {
-                            isSaving = false;
-                            saveDishButton.setEnabled(true);
-                            dishNameInput.setText("");
-                            dishDescriptionInput.setText("");
-                            dishIngredientsInput.setText("");
-                            addDishPanel.setVisibility(View.GONE);
-                            loadMyDishes();
-                            if (!response2.isSuccessful()) {
-                                Toast.makeText(requireContext(), R.string.could_not_add_dish_to_plan, Toast.LENGTH_LONG).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Void> call2, Throwable t) {
-                            isSaving = false;
-                            saveDishButton.setEnabled(true);
-                            dishNameInput.setText("");
-                            dishDescriptionInput.setText("");
-                            dishIngredientsInput.setText("");
-                            addDishPanel.setVisibility(View.GONE);
-                            loadMyDishes();
-                            Toast.makeText(requireContext(), R.string.could_not_add_dish_to_plan, Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    isSaving = false;
-                    saveDishButton.setEnabled(true);
-                    dishNameInput.setText("");
-                    dishDescriptionInput.setText("");
-                    dishIngredientsInput.setText("");
-                    addDishPanel.setVisibility(View.GONE);
-                    loadMyDishes();
-                }
+                isSaving = false;
+                saveDishButton.setEnabled(true);
+                dishNameInput.setText("");
+                dishDescriptionInput.setText("");
+                dishIngredientsInput.setText("");
+                addDishPanel.setVisibility(View.GONE);
+                loadMyDishes();
+                Toast.makeText(requireContext(), R.string.dish_saved_to_my_dishes, Toast.LENGTH_LONG).show();
             }
 
             @Override

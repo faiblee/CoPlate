@@ -23,7 +23,7 @@ public interface DishApi {
     @GET("api/dishes/{id}")
     Call<DishResponse> getDishById(@Path("id") long id);
 
-    @GET("api/dishes/library")
+    @GET("api/library")
     Call<JsonElement> getLibraryDishes();
 
     @DELETE("api/dishes/{id}")

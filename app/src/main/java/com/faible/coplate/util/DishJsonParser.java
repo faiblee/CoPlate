@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * GET /api/families/{id}/dishes может вернуть массив или объект с ключом списка.
+ * GET /api/families/{id}/dishes и GET /api/library: массив или объект с ключом списка (в т.ч. {@code library}).
  */
 public final class DishJsonParser {
 
@@ -33,7 +33,7 @@ public final class DishJsonParser {
             return Collections.emptyList();
         }
         JsonObject obj = root.getAsJsonObject();
-        for (String key : new String[]{"dishes", "data", "items", "content", "results", "body"}) {
+        for (String key : new String[]{"library", "dishes", "data", "items", "content", "results", "body"}) {
             if (!obj.has(key)) {
                 continue;
             }
