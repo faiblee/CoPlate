@@ -55,7 +55,7 @@
         android:background="@drawable/action_button"
         android:orientation="vertical"
         android:padding="12dp"
-        android:visibility="">
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/dishNameInput"
