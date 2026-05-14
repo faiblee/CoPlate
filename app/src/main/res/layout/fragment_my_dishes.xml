@@ -55,7 +55,7 @@
         android:background="@drawable/action_button"
         android:orientation="vertical"
         android:padding="12dp"
-        android:visibility="gone">
+        android:visibility="">
 
         <EditText
             android:id="@+id/dishNameInput"
@@ -100,7 +100,7 @@
             android:backgroundTint="@null"
             android:text="@string/save_dish"
             android:textAllCaps="false"
-            android:textColor="@color/app_accent_green" />
+            android:textColor="@color/app_text_primary" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
