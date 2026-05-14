@@ -201,7 +201,7 @@ public class Day extends Fragment {
         new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.clear_week_menu_dialog_title)
                 .setMessage(R.string.clear_week_menu_dialog_message)
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton( "Отмена", null)
                 .setPositiveButton(R.string.clear_week_menu_confirm, (dialog, which) -> clearWeekMenu())
                 .show();
     }

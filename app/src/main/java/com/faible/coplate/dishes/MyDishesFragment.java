@@ -163,7 +163,7 @@ public class MyDishesFragment extends Fragment implements MyDishesAdapter.MyDish
         new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.delete_dish_dialog_title)
                 .setMessage(getString(R.string.delete_dish_confirm_message, title))
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton("Отмена", null)
                 .setPositiveButton(R.string.delete, (dialog, which) -> dishApi.deleteDish(id).enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
