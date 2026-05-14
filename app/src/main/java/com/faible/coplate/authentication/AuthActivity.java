@@ -20,6 +20,20 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Уже вошли ранее — токен лежит в prefs; не показываем экран логина после перезапуска приложения
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String token = prefs.getString(KEY_TOKEN, null);
+        String userId = prefs.getString(KEY_USER_ID, null);
+        if (token != null && !token.trim().isEmpty()
+                && userId != null && !userId.trim().isEmpty()) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_auth);
 
         if (savedInstanceState == null) {

@@ -119,7 +119,8 @@ public class FamilyInsideFragment extends Fragment {
                         familyCodeText.setText(inviteCode != null ? inviteCode : "Нет кода");
                     }
                     currentOwnerId = family.getOwnerId();
-                    isOwner = currentUserId.equals(currentOwnerId);
+                    isOwner = currentUserId != null && currentUserId.equals(currentOwnerId);
+                    memberAdapter.setOwnerId(currentOwnerId);
                     setupActionButton();
                     loadMembers();
                 }

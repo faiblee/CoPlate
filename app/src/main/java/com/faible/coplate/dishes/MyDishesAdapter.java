@@ -3,7 +3,6 @@ package com.faible.coplate.dishes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,8 +22,6 @@ public class MyDishesAdapter extends RecyclerView.Adapter<MyDishesAdapter.ViewHo
 
     public interface MyDishesActionListener {
         void onDishOpenForPlan(@NonNull DishResponse dish);
-
-        void onAddIngredientsToShopping(@NonNull DishResponse dish);
 
         void onDeleteDish(@NonNull DishResponse dish);
     }
@@ -89,14 +86,6 @@ public class MyDishesAdapter extends RecyclerView.Adapter<MyDishesAdapter.ViewHo
             actionListener.onDishOpenForPlan(dishes.get(pos));
         });
 
-        holder.addToShoppingButton.setOnClickListener(v -> {
-            int pos = holder.getAdapterPosition();
-            if (pos == RecyclerView.NO_POSITION || pos >= dishes.size()) {
-                return;
-            }
-            actionListener.onAddIngredientsToShopping(dishes.get(pos));
-        });
-
         holder.deleteButton.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
             if (pos == RecyclerView.NO_POSITION || pos >= dishes.size()) {
@@ -119,7 +108,6 @@ public class MyDishesAdapter extends RecyclerView.Adapter<MyDishesAdapter.ViewHo
         final LinearLayout dishClickableArea;
         final TextView dishName;
         final TextView ingredients;
-        final Button addToShoppingButton;
         final ImageButton deleteButton;
 
         ViewHolder(@NonNull View itemView) {
@@ -127,7 +115,6 @@ public class MyDishesAdapter extends RecyclerView.Adapter<MyDishesAdapter.ViewHo
             dishClickableArea = itemView.findViewById(R.id.dishClickableArea);
             dishName = itemView.findViewById(R.id.myDishName);
             ingredients = itemView.findViewById(R.id.myDishIngredients);
-            addToShoppingButton = itemView.findViewById(R.id.btnAddIngredientsToShopping);
             deleteButton = itemView.findViewById(R.id.btnDeleteMyDish);
         }
     }

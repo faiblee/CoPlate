@@ -188,4 +188,9 @@ public class MainActivity extends AppCompatActivity {
     public void openCatalogTab() {
         loadFragment(new Catalog(), true);
     }
+
+    /** Переключение на вкладку списка покупок (например после «К покупкам» в блюде плана). */
+    public void openShoppingTab() {
+        loadFragment(new Shopping_list(), true);
+    }
 }

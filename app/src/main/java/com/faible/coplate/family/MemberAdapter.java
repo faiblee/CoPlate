@@ -4,23 +4,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faible.coplate.R;
-import com.faible.coplate.api.FamilyApi;
-import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberViewHolder> {
 
@@ -30,6 +25,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
     private boolean canKick = false;
     private String currentUserId;
     private String currentFamilyId;
+    @Nullable
+    private String ownerId;
 
     public interface OnMemberClickListener {
         void onMemberClick(User user);
@@ -60,6 +57,11 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         this.kickListener = listener;
     }
 
+    public void setOwnerId(@Nullable String ownerUserId) {
+        this.ownerId = ownerUserId;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public MemberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -74,10 +76,15 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
         String displayName = user.getName() != null ? user.getName() : user.getUsername();
         holder.memberNameText.setText(displayName);
 
+        String uid = user.getId();
+        boolean isFamilyOwner = ownerId != null && !ownerId.trim().isEmpty()
+                && uid != null && ownerId.trim().equals(uid.trim());
+        holder.memberOwnerCrown.setVisibility(isFamilyOwner ? View.VISIBLE : View.GONE);
+
         // Логика отображения кнопки удаления
         if (canKick) {
             // Если текущий пользователь - владелец
-            if (user.getId().equals(currentUserId)) {
+            if (uid != null && uid.equals(currentUserId)) {
                 // Кнопка скрыта для владельца (он не может себя исключить, только распустить семью)
                 holder.kickButton.setVisibility(View.GONE);
             } else {
@@ -85,8 +92,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
                 holder.kickButton.setVisibility(View.VISIBLE);
                 holder.kickButton.setText("Исключить");
                 holder.kickButton.setOnClickListener(v -> {
-                    if (kickListener != null) {
-                        kickListener.onKick(user.getId());
+                    if (kickListener != null && uid != null) {
+                        kickListener.onKick(uid);
                     }
                 });
             }
@@ -114,11 +121,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
 
     static class MemberViewHolder extends RecyclerView.ViewHolder {
         TextView memberNameText;
+        ImageView memberOwnerCrown;
         Button kickButton;
 
         MemberViewHolder(View itemView) {
             super(itemView);
             memberNameText = itemView.findViewById(R.id.memberName);
+            memberOwnerCrown = itemView.findViewById(R.id.memberOwnerCrown);
             kickButton = itemView.findViewById(R.id.kickButton);
         }
     }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_rectangle1"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_dish_dialog_title"
+        android:textColor="#1F2A24"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/addDishChooserMyDishes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/action_button"
+        android:backgroundTint="@null"
+        android:minHeight="48dp"
+        android:text="@string/add_custom_dish"
+        android:textAllCaps="false"
+        android:textColor="#1F2A24"
+        android:textSize="16sp"
+        app:backgroundTint="@null" />
+
+    <Button
+        android:id="@+id/addDishChooserLibrary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/action_button"
+        android:backgroundTint="@null"
+        android:minHeight="48dp"
+        android:text="@string/library_dishes"
+        android:textAllCaps="false"
+        android:textColor="#1F2A24"
+        android:textSize="16sp"
+        app:backgroundTint="@null" />
+</LinearLayout>

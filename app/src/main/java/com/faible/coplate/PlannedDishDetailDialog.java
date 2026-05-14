@@ -21,9 +21,13 @@ import androidx.fragment.app.FragmentManager;
 
 import com.faible.coplate.api.DishApi;
 import com.faible.coplate.api.MealPlanApi;
+import com.faible.coplate.api.PurchaseApi;
 import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.model.DishResponse;
+import com.faible.coplate.model.PurchaseResponse;
 import com.faible.coplate.util.IngredientTextFormatter;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +51,7 @@ public class PlannedDishDetailDialog extends DialogFragment {
     private TextView descriptionView;
     private Button removeButton;
     private boolean removeInProgress;
+    private boolean shoppingInProgress;
 
     @Nullable
     private String mealPlanDescriptionPrefill;
@@ -119,7 +124,7 @@ public class PlannedDishDetailDialog extends DialogFragment {
         descriptionLabel = view.findViewById(R.id.plannedDetailDescriptionLabel);
         descriptionView = view.findViewById(R.id.plannedDetailDescription);
         removeButton = view.findViewById(R.id.plannedDetailRemove);
-        Button closeButton = view.findViewById(R.id.plannedDetailClose);
+        Button toShoppingButton = view.findViewById(R.id.plannedDetailToShopping);
 
         if (planRowId <= 0) {
             removeButton.setVisibility(View.GONE);
@@ -166,10 +171,54 @@ public class PlannedDishDetailDialog extends DialogFragment {
             }
         });
 
-        closeButton.setOnClickListener(v -> dismiss());
-
         SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
-        String familyId = prefs.getString("family_id", null);
+        final String familyId = prefs.getString("family_id", null);
+
+        PurchaseApi purchaseApi = RetrofitClient.getClient(requireContext()).create(PurchaseApi.class);
+        toShoppingButton.setOnClickListener(v -> {
+            if (shoppingInProgress || dishId <= 0) {
+                return;
+            }
+            if (familyId == null || familyId.trim().isEmpty()) {
+                Toast.makeText(requireContext(), R.string.family_required_for_plan, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            shoppingInProgress = true;
+            toShoppingButton.setEnabled(false);
+            purchaseApi.addPurchasesFromDish(familyId.trim(), dishId).enqueue(new Callback<List<PurchaseResponse>>() {
+                @Override
+                public void onResponse(Call<List<PurchaseResponse>> call, Response<List<PurchaseResponse>> response) {
+                    shoppingInProgress = false;
+                    if (!isAdded()) {
+                        return;
+                    }
+                    toShoppingButton.setEnabled(true);
+                    if (response.isSuccessful() && response.body() != null) {
+                        int n = response.body().size();
+                        if (n == 0) {
+                            Toast.makeText(requireContext(), R.string.no_ingredients_to_add_shopping, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(requireContext(), getString(R.string.ingredients_added_to_shopping, n), Toast.LENGTH_SHORT).show();
+                            dismissAllowingStateLoss();
+                            if (requireActivity() instanceof MainActivity) {
+                                ((MainActivity) requireActivity()).openShoppingTab();
+                            }
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), R.string.ingredients_to_shopping_failed, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<PurchaseResponse>> call, Throwable t) {
+                    shoppingInProgress = false;
+                    if (isAdded()) {
+                        toShoppingButton.setEnabled(true);
+                        Toast.makeText(requireContext(), getString(R.string.network_error_simple) + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        });
 
         removeButton.setOnClickListener(v -> {
             if (removeInProgress || planRowId <= 0) {
