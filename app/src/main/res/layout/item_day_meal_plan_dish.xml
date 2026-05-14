@@ -14,7 +14,7 @@
         android:id="@+id/plannedDishName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#1F2A24"
+        android:textColor="@color/app_text_primary"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textColor="#666666"
+        android:textColor="@color/app_text_secondary"
         android:textSize="13sp"
         android:visibility="gone" />
 </LinearLayout>

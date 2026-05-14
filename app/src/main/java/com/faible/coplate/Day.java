@@ -128,11 +128,21 @@ public class Day extends Fragment {
     }
 
     private void showAddDishChooser(String mealType) {
-        new AlertDialog.Builder(requireContext())
-                .setTitle(R.string.add_dish_dialog_title)
-                .setPositiveButton(R.string.add_custom_dish, (d, w) -> openMyDishesScreen(mealType))
-                .setNegativeButton(R.string.library_dishes, (d, w) -> openLibraryTabFromDay())
-                .show();
+        View content = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_dish_chooser, null, false);
+        Button btnMyDishes = content.findViewById(R.id.addDishChooserMyDishes);
+        Button btnLibrary = content.findViewById(R.id.addDishChooserLibrary);
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+                .setView(content)
+                .create();
+        btnMyDishes.setOnClickListener(v -> {
+            dialog.dismiss();
+            openMyDishesScreen(mealType);
+        });
+        btnLibrary.setOnClickListener(v -> {
+            dialog.dismiss();
+            openLibraryTabFromDay();
+        });
+        dialog.show();
     }
 
     private void openLibraryTabFromDay() {
@@ -180,7 +190,20 @@ public class Day extends Fragment {
     }
 
     private void initTrashButton(View view) {
-        view.findViewById(R.id.trashButton).setOnClickListener(v -> clearWeekMenu());
+        view.findViewById(R.id.trashButton).setOnClickListener(v -> confirmClearWeekMenu());
+    }
+
+    private void confirmClearWeekMenu() {
+        if (familyId == null || familyId.trim().isEmpty()) {
+            showToast(getString(R.string.family_required_for_plan));
+            return;
+        }
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.clear_week_menu_dialog_title)
+                .setMessage(R.string.clear_week_menu_dialog_message)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.clear_week_menu_confirm, (dialog, which) -> clearWeekMenu())
+                .show();
     }
 
     private void clearWeekMenu() {
@@ -249,8 +272,25 @@ public class Day extends Fragment {
 
     @Nullable
     private WeekDayMeals findDayForSelection(@Nullable WeekMealPlanResponse plan, int dayOfWeek) {
-        if (plan == null) return null;
+        if (plan == null) {
+            return null;
+        }
         List<WeekDayMeals> days = plan.getDays();
+        if (days.isEmpty()) {
+            return null;
+        }
+
+        // Сервер в CoPlate отдаёт ISO 1–7 (пн=1 … вс=7). Fallback «db+1» нужен только для старой схемы 0–6 (пн=0).
+        // Если применить db+1 при уже ISO-ответе, понедельник (1) ошибочно матчится на вторник (2) и т.д.
+        boolean anyIsoDayNumber = false;
+        for (WeekDayMeals d : days) {
+            int v = d.getDayOfWeek();
+            if (v >= 1 && v <= 7) {
+                anyIsoDayNumber = true;
+                break;
+            }
+        }
+
         for (WeekDayMeals d : days) {
             if (d.getDayOfWeek() == dayOfWeek) {
                 return d;
@@ -262,9 +302,13 @@ public class Day extends Fragment {
             if ((dayOfWeek == 7 && db == 0) || (dayOfWeek == 0 && db == 7)) {
                 return d;
             }
-            /* Сервер может отдавать 0–6 (пн=0 … вс=6) */
-            if (db >= 0 && db <= 6 && db + 1 == dayOfWeek) {
-                return d;
+        }
+        if (!anyIsoDayNumber) {
+            for (WeekDayMeals d : days) {
+                int db = d.getDayOfWeek();
+                if (db >= 0 && db <= 6 && db + 1 == dayOfWeek) {
+                    return d;
+                }
             }
         }
         return null;

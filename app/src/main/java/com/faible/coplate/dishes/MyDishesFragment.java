@@ -20,13 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.faible.coplate.R;
 import com.faible.coplate.api.DishApi;
 import com.faible.coplate.api.MealPlanApi;
-import com.faible.coplate.api.PurchaseApi;
 import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.model.DishCreateRequest;
 import com.faible.coplate.model.DishIngredientRequest;
 import com.faible.coplate.model.DishResponse;
 import com.faible.coplate.model.MealPlanAddRequest;
-import com.faible.coplate.model.PurchaseResponse;
 import com.faible.coplate.util.DishJsonParser;
 
 import com.google.gson.JsonElement;
@@ -55,7 +53,6 @@ public class MyDishesFragment extends Fragment implements MyDishesAdapter.MyDish
     private MyDishesAdapter adapter;
     private DishApi dishApi;
     private MealPlanApi mealPlanApi;
-    private PurchaseApi purchaseApi;
     private String familyId;
     private String userId;
     private boolean isSaving = false;
@@ -82,7 +79,6 @@ public class MyDishesFragment extends Fragment implements MyDishesAdapter.MyDish
 
         dishApi = RetrofitClient.getClient(requireContext()).create(DishApi.class);
         mealPlanApi = RetrofitClient.getClient(requireContext()).create(MealPlanApi.class);
-        purchaseApi = RetrofitClient.getClient(requireContext()).create(PurchaseApi.class);
         SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE);
         familyId = prefs.getString("family_id", null);
         userId = prefs.getString("user_id", null);
@@ -147,44 +143,6 @@ public class MyDishesFragment extends Fragment implements MyDishesAdapter.MyDish
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                if (isAdded()) {
-                    Toast.makeText(requireContext(), getString(R.string.network_error_simple) + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    @Override
-    public void onAddIngredientsToShopping(@NonNull DishResponse dish) {
-        if (familyId == null || familyId.trim().isEmpty()) {
-            Toast.makeText(requireContext(), R.string.family_required_for_plan, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Long id = parseDishId(dish);
-        if (id == null) {
-            Toast.makeText(requireContext(), R.string.dish_add_to_plan_failed, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        purchaseApi.addPurchasesFromDish(familyId.trim(), id).enqueue(new Callback<List<PurchaseResponse>>() {
-            @Override
-            public void onResponse(Call<List<PurchaseResponse>> call, Response<List<PurchaseResponse>> response) {
-                if (!isAdded()) {
-                    return;
-                }
-                if (response.isSuccessful() && response.body() != null) {
-                    int n = response.body().size();
-                    if (n == 0) {
-                        Toast.makeText(requireContext(), R.string.no_ingredients_to_add_shopping, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(requireContext(), getString(R.string.ingredients_added_to_shopping, n), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(requireContext(), R.string.ingredients_to_shopping_failed, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<PurchaseResponse>> call, Throwable t) {
                 if (isAdded()) {
                     Toast.makeText(requireContext(), getString(R.string.network_error_simple) + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }

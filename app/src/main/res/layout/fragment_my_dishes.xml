@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/app_window_background"
     android:padding="16dp">
 
     <LinearLayout
@@ -26,7 +27,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/my_dishes_title"
-            android:textColor="#1F2A24"
+            android:textColor="@color/app_text_primary"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -44,7 +45,7 @@
         android:backgroundTint="@null"
         android:text="@string/add_new_dish"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/app_text_primary" />
 
     <LinearLayout
         android:id="@+id/addDishPanel"
@@ -63,8 +64,8 @@
             android:background="@android:color/transparent"
             android:hint="@string/dish_name_hint"
             android:inputType="text"
-            android:textColor="#1F2A24"
-            android:textColorHint="#9E9E9E" />
+            android:textColor="@color/app_text_primary"
+            android:textColorHint="@color/app_text_hint" />
 
         <EditText
             android:id="@+id/dishDescriptionInput"
@@ -75,8 +76,8 @@
             android:hint="@string/dish_description_hint"
             android:inputType="textMultiLine"
             android:minLines="2"
-            android:textColor="#1F2A24"
-            android:textColorHint="#9E9E9E" />
+            android:textColor="@color/app_text_primary"
+            android:textColorHint="@color/app_text_hint" />
 
         <EditText
             android:id="@+id/dishIngredientsInput"
@@ -87,8 +88,8 @@
             android:hint="@string/dish_ingredients_hint"
             android:inputType="textMultiLine"
             android:minLines="2"
-            android:textColor="#1F2A24"
-            android:textColorHint="#9E9E9E" />
+            android:textColor="@color/app_text_primary"
+            android:textColorHint="@color/app_text_hint" />
 
         <Button
             android:id="@+id/saveDishButton"
@@ -99,7 +100,7 @@
             android:backgroundTint="@null"
             android:text="@string/save_dish"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/app_accent_green" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

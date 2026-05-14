@@ -10,7 +10,7 @@
         android:id="@+id/libraryDetailTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#1F2A24"
+        android:textColor="@color/app_text_primary"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dish_ingredients_section"
-                android:textColor="#666666"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="13sp" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:lineSpacingMultiplier="1.15"
-                android:textColor="#333333"
+                android:textColor="@color/app_text_body"
                 android:textSize="15sp" />
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:text="@string/dish_description_section"
-                android:textColor="#666666"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="13sp" />
 
             <TextView
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="#333333"
+                android:textColor="@color/app_text_body"
                 android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
@@ -71,5 +71,5 @@
         android:backgroundTint="@null"
         android:text="@string/close"
         android:textAllCaps="false"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/app_on_brand_button" />
 </LinearLayout>

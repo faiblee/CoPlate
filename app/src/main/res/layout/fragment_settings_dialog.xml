@@ -14,7 +14,7 @@
         android:text="Настройки"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#1F2A24"
+        android:textColor="@color/app_text_primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="Выбор темы"
         android:textSize="14sp"
-        android:textColor="#666666"
+        android:textColor="@color/app_text_secondary"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
@@ -35,7 +35,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#F5F5F5"
+        android:background="@color/app_theme_segment_bg"
         android:padding="4dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
             android:button="@null"
             android:gravity="center"
             android:background="@drawable/theme_selector_neutral"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/settings_theme_option_text"
             android:checked="true"/>
 
         <RadioButton
@@ -63,7 +63,7 @@
             android:button="@null"
             android:gravity="center"
             android:background="@drawable/theme_selector_neutral"
-            android:textColor="#FFFFFF"/>
+            android:textColor="@color/settings_theme_option_text"/>
     </RadioGroup>
 
 
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="Имя пользователя"
             android:textSize="14sp"
-            android:textColor="#666666"
+            android:textColor="@color/app_text_secondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +96,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:inputType="textPersonName"
-            android:textColor="#212121"
+            android:textColor="@color/app_text_primary"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:text="Имя"
             android:textSize="14sp"
-            android:textColor="#666666"
+            android:textColor="@color/app_text_secondary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -132,7 +132,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:inputType="textPersonName"
-            android:textColor="#212121"
+            android:textColor="@color/app_text_primary"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -146,7 +146,7 @@
         android:layout_height="wrap_content"
         android:text="Старый пароль"
         android:textSize="14sp"
-        android:textColor="#666666"
+        android:textColor="@color/app_text_secondary"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/containerName" />
@@ -160,7 +160,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:inputType="textPassword"
-        android:textColor="#212121"
+        android:textColor="@color/app_text_primary"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +172,7 @@
         android:layout_height="wrap_content"
         android:text="Пароль"
         android:textSize="14sp"
-        android:textColor="#666666"
+        android:textColor="@color/app_text_secondary"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etOldPassword" />
@@ -186,7 +186,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:inputType="textPassword"
-        android:textColor="#212121"
+        android:textColor="@color/app_text_primary"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

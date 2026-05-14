@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_window_background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/week_days"
-            android:textColor="#1F2A24"
+            android:textColor="@color/app_text_primary"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -51,7 +52,7 @@
             android:checked="true"
             android:gravity="center"
             android:text="Пн"
-            android:textColor="@color/black"
+            android:textColor="@color/app_weekday_pill_text"
             android:textSize="14sp" />
 
         <RadioButton
@@ -64,7 +65,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="Вт"
-            android:textColor="@color/black"
+            android:textColor="@color/app_weekday_pill_text"
             android:textSize="14sp" />
 
         <RadioButton
@@ -77,7 +78,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="Ср"
-            android:textColor="@color/black"
+            android:textColor="@color/app_weekday_pill_text"
             android:textSize="14sp" />
 
         <RadioButton
@@ -90,7 +91,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="Чт"
-            android:textColor="@color/black"
+            android:textColor="@color/app_weekday_pill_text"
             android:textSize="14sp" />
 
         <RadioButton
@@ -103,7 +104,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="Пт"
-            android:textColor="@color/black"
+            android:textColor="@color/app_weekday_pill_text"
             android:textSize="14sp" />
 
         <RadioButton
@@ -116,7 +117,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="Сб"
-            android:textColor="@color/black"
+            android:textColor="@color/app_weekday_pill_text"
             android:textSize="14sp" />
 
         <RadioButton
@@ -129,7 +130,7 @@
             android:button="@null"
             android:gravity="center"
             android:text="Вс"
-            android:textColor="@color/black"
+            android:textColor="@color/app_weekday_pill_text"
             android:textSize="14sp" />
     </RadioGroup>
 
@@ -145,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/today_menu"
-            android:textColor="#2D3833"
+            android:textColor="@color/app_title_large"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -188,7 +189,7 @@
                     android:paddingEnd="12dp"
                     android:text="@string/meal_breakfast"
                     android:textAllCaps="false"
-                    android:textColor="#258B4E"
+                    android:textColor="@color/app_accent_green"
                     android:textSize="24sp"
                     app:backgroundTint="@null" />
 
@@ -207,7 +208,7 @@
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
                         android:text="@string/add_meal_dish"
-                        android:textColor="#1F2A24"
+                        android:textColor="@color/app_text_primary"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
 
@@ -238,7 +239,7 @@
                     android:paddingEnd="12dp"
                     android:text="@string/meal_lunch"
                     android:textAllCaps="false"
-                    android:textColor="#258B4E"
+                    android:textColor="@color/app_accent_green"
                     android:textSize="24sp"
                     app:backgroundTint="@null" />
 
@@ -257,7 +258,7 @@
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
                         android:text="@string/add_meal_dish"
-                        android:textColor="#1F2A24"
+                        android:textColor="@color/app_text_primary"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
 
@@ -288,7 +289,7 @@
                     android:paddingEnd="12dp"
                     android:text="@string/meal_dinner"
                     android:textAllCaps="false"
-                    android:textColor="#258B4E"
+                    android:textColor="@color/app_accent_green"
                     android:textSize="24sp"
                     app:backgroundTint="@null" />
 
@@ -307,7 +308,7 @@
                         android:background="@drawable/action_button"
                         android:backgroundTint="@null"
                         android:text="@string/add_meal_dish"
-                        android:textColor="#1F2A24"
+                        android:textColor="@color/app_text_primary"
                         android:textAllCaps="false"
                         app:backgroundTint="@null" />
 
@@ -325,10 +326,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:background="#EEF7EC"
+                android:background="@color/app_suggestion_bg"
                 android:padding="12dp"
                 android:text="@string/suggestion_add_ingredients"
-                android:textColor="#2E6B2F"
+                android:textColor="@color/app_suggestion_text"
                 android:textSize="13sp"
                 android:visibility="gone" />
 

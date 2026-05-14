@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <!-- Цвет фона поля -->
-    <solid android:color="#F5F5F5" />
+    <solid android:color="@color/app_input_fill" />
 
     <!-- Скругление углов -->
     <corners android:radius="24dp" />
@@ -11,6 +11,6 @@
     <!-- Обводка -->
     <stroke
         android:width="1dp"
-        android:color="#E0E0E0" />
+        android:color="@color/app_input_stroke" />
 
 </shape>

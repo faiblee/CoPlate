@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:background="@color/app_window_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:text="@string/library_dishes"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#1F2A24"
+            android:textColor="@color/app_text_primary"
             android:gravity="center_horizontal"/>
 
         <ImageButton

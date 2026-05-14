@@ -15,8 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.DialogFragment;
 import com.faible.coplate.api.RetrofitClient;
 import com.faible.coplate.api.UserApi;
@@ -75,6 +77,7 @@ public class SettingsDialogFragment extends DialogFragment {
 
         // 5. Настраиваем обработчики событий
         setupListeners();
+        setupThemeToggle();
     }
 
     private void initViews(View view) {
@@ -136,10 +139,34 @@ public class SettingsDialogFragment extends DialogFragment {
         // Кнопка "Применить" отправляет данные на сервер
         btnApply.setOnClickListener(v -> saveSettings());
         btnLogout.setOnClickListener(v -> logout());
+    }
 
-        // Логика темы (пока заглушка, как было ранее)
+    private void setupThemeToggle() {
+        if (themeGroup == null) {
+            return;
+        }
+        int mode = CoPlateApp.getStoredThemeMode(requireContext());
+        themeGroup.setOnCheckedChangeListener(null);
+        if (mode == AppCompatDelegate.MODE_NIGHT_YES) {
+            themeGroup.check(R.id.rbDark);
+        } else {
+            themeGroup.check(R.id.rbLight);
+        }
         themeGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            // Здесь будет логика смены темы приложения
+            if (!isAdded()) {
+                return;
+            }
+            int newMode = checkedId == R.id.rbDark
+                    ? AppCompatDelegate.MODE_NIGHT_YES
+                    : AppCompatDelegate.MODE_NIGHT_NO;
+            if (newMode == CoPlateApp.getStoredThemeMode(requireContext())) {
+                return;
+            }
+            CoPlateApp.persistAndApplyTheme(requireContext(), newMode);
+            dismiss();
+            if (getActivity() != null) {
+                getActivity().recreate();
+            }
         });
     }
 
@@ -230,7 +257,8 @@ public class SettingsDialogFragment extends DialogFragment {
 
     private void logout() {
         SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
-        prefs.edit().clear().apply();
+        int savedTheme = CoPlateApp.getStoredThemeMode(requireContext());
+        prefs.edit().clear().putInt(CoPlateApp.KEY_THEME_MODE, savedTheme).apply();
 
         Intent intent = new Intent(requireContext(), AuthActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

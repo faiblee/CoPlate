@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Material 3 — тёмная зелёная схема -->
+    <color name="md_primary">#8BD58F</color>
+    <color name="md_on_primary">#0A1F0C</color>
+    <color name="md_primary_container">#1E4A28</color>
+    <color name="md_on_primary_container">#C8F2D9</color>
+    <color name="md_secondary">#7BCF91</color>
+    <color name="md_on_secondary">#0A1F0C</color>
+    <color name="md_secondary_container">#1A3324</color>
+    <color name="md_on_secondary_container">#C8E6C9</color>
+    <color name="md_tertiary">#6BBF7A</color>
+    <color name="md_on_tertiary">#0A1F0C</color>
+    <color name="md_tertiary_container">#1B3D22</color>
+    <color name="md_on_tertiary_container">#DFF3E6</color>
+
+    <color name="app_window_background">#0F1512</color>
+    <color name="app_status_bar">#0F1512</color>
+    <color name="app_nav_bar">#15221A</color>
+    <color name="app_card_background">#162019</color>
+    <color name="app_card_stroke">#3D6B52</color>
+    <color name="app_text_primary">#E4EDE6</color>
+    <color name="app_text_secondary">#9CA89E</color>
+    <color name="app_text_body">#B8C4BA</color>
+    <color name="app_text_tertiary">#9AA89E</color>
+    <color name="app_text_hint">#6B756F</color>
+    <color name="app_text_muted">#7A857E</color>
+    <color name="app_accent_green">#7BCF91</color>
+    <color name="app_title_large">#D5E5DA</color>
+    <color name="app_suggestion_bg">#1A3326</color>
+    <color name="app_suggestion_text">#9FD4AF</color>
+    <color name="app_input_fill">#1A221C</color>
+    <color name="app_input_stroke">#3D4A42</color>
+    <color name="app_theme_segment_bg">#242E28</color>
+    <color name="app_day_pill_track">#2C3830</color>
+    <color name="app_action_soft_fill">#1A2E22</color>
+    <color name="app_action_soft_stroke">#3D6B52</color>
+    <color name="app_button_primary_fill">#1E4A28</color>
+    <color name="app_button_primary_stroke">#4A8F62</color>
+    <color name="app_auth_header_green">#1B4D1E</color>
+    <color name="app_divider">#3D4540</color>
+    <color name="app_delete">#CF6679</color>
+    <color name="app_on_delete">#FFFFFF</color>
+    <color name="app_remove_text">#FFB4A9</color>
+    <color name="app_on_brand_button">#FFFFFF</color>
+    <color name="app_catalog_card">#162019</color>
+    <color name="app_link_bright">#81C784</color>
+    <color name="app_auth_orange">#FFB74D</color>
+    <color name="app_auth_link_green">#A5D6A7</color>
+    <color name="app_family_soft_field">#1E2C24</color>
+</resources>

@@ -4,13 +4,15 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:background="@drawable/action_button"
-    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:padding="12dp">
 
     <LinearLayout
         android:id="@+id/dishClickableArea"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:background="@android:color/transparent"
         android:clickable="true"
         android:focusable="true"
@@ -21,7 +23,7 @@
             android:id="@+id/myDishName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#1F2A24"
+            android:textColor="@color/app_text_primary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -30,38 +32,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:textColor="#555555"
+            android:textColor="@color/app_text_tertiary"
             android:textSize="14sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnAddIngredientsToShopping"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:backgroundTint="@null"
-            android:text="@string/add_ingredients_to_shopping"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <ImageButton
-            android:id="@+id/btnDeleteMyDish"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/delete"
-            android:padding="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/trash" />
-    </LinearLayout>
+    <ImageButton
+        android:id="@+id/btnDeleteMyDish"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/delete"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/trash" />
 </LinearLayout>

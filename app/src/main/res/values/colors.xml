@@ -20,4 +20,40 @@
     <color name="md_tertiary_container">#DFF3E6</color>
     <color name="md_on_tertiary_container">#0F3D1A</color>
 
+    <!-- Семантика UI (светлая тема) — ссылки из макетов и drawable -->
+    <color name="app_window_background">#FFFFFF</color>
+    <color name="app_status_bar">#E8F5E9</color>
+    <color name="app_nav_bar">#ACE7C7</color>
+    <color name="app_card_background">#FFFFFF</color>
+    <color name="app_card_stroke">#258B4E</color>
+    <color name="app_text_primary">#1F2A24</color>
+    <color name="app_text_secondary">#666666</color>
+    <color name="app_text_body">#333333</color>
+    <color name="app_text_tertiary">#555555</color>
+    <color name="app_text_hint">#9E9E9E</color>
+    <color name="app_text_muted">#999999</color>
+    <color name="app_accent_green">#258B4E</color>
+    <color name="app_title_large">#2D3833</color>
+    <color name="app_suggestion_bg">#EEF7EC</color>
+    <color name="app_suggestion_text">#2E6B2F</color>
+    <color name="app_input_fill">#F5F5F5</color>
+    <color name="app_input_stroke">#E0E0E0</color>
+    <color name="app_theme_segment_bg">#F5F5F5</color>
+    <color name="app_day_pill_track">#D9D9D9</color>
+    <color name="app_action_soft_fill">#E7FAEF</color>
+    <color name="app_action_soft_stroke">#A6DDBE</color>
+    <color name="app_button_primary_fill">#C8F2D9</color>
+    <color name="app_button_primary_stroke">#78C89C</color>
+    <color name="app_auth_header_green">#2E7D32</color>
+    <color name="app_divider">#E0E0E0</color>
+    <color name="app_delete">#D32F2F</color>
+    <color name="app_on_delete">#FFFFFF</color>
+    <color name="app_remove_text">#C62828</color>
+    <color name="app_on_brand_button">#FFFFFF</color>
+    <color name="app_catalog_card">#FFFFFF</color>
+    <color name="app_link_bright">#4CAF50</color>
+    <color name="app_auth_orange">#F4A62A</color>
+    <color name="app_auth_link_green">#2E7D32</color>
+    <color name="app_family_soft_field">#DFF3E6</color>
+
 </resources>

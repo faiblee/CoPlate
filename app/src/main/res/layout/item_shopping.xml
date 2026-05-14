@@ -29,7 +29,7 @@
         android:layout_marginEnd="16dp"
         android:text="Название товара"
         android:textSize="18sp"
-        android:textColor="#1F2A24"
+        android:textColor="@color/app_text_primary"
         android:ellipsize="end"
         android:maxLines="2"
         app:layout_constraintStart_toEndOf="@id/itemCheckbox"

@@ -1,6 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.CoPlate" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/app_window_background</item>
+        <item name="android:colorBackground">@color/app_window_background</item>
+        <item name="android:statusBarColor">@color/app_status_bar</item>
+        <item name="android:navigationBarColor">@color/app_nav_bar</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
         <item name="colorPrimary">@color/md_primary</item>
         <item name="colorOnPrimary">@color/md_on_primary</item>
         <item name="colorPrimaryContainer">@color/md_primary_container</item>
@@ -13,6 +18,8 @@
         <item name="colorOnTertiary">@color/md_on_tertiary</item>
         <item name="colorTertiaryContainer">@color/md_tertiary_container</item>
         <item name="colorOnTertiaryContainer">@color/md_on_tertiary_container</item>
+        <item name="colorSurface">@color/app_window_background</item>
+        <item name="colorOnSurface">@color/app_text_primary</item>
     </style>
 
     <style name="Theme.CoPlate" parent="Base.Theme.CoPlate" />

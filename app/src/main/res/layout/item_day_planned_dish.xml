@@ -4,6 +4,6 @@
     android:layout_height="wrap_content"
     android:background="@drawable/action_button"
     android:padding="12dp"
-    android:textColor="#1F2A24"
+    android:textColor="@color/app_text_primary"
     android:textSize="15sp"
     android:layout_marginBottom="6dp" />

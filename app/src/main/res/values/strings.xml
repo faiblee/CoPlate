@@ -45,6 +45,8 @@
     <string name="dish_no_ingredients">Ингредиенты не указаны</string>
     <string name="dish_no_description">Описание не указано</string>
     <string name="close">Закрыть</string>
+    <string name="planned_dish_to_shopping">К покупкам</string>
+    <string name="family_owner_crown">Владелец семьи</string>
     <string name="remove_dish_from_plan">Удалить</string>
     <string name="dish_removed_from_plan">Блюдо убрано из меню</string>
     <string name="dish_remove_from_plan_failed">Не удалось удалить блюдо из плана</string>
@@ -66,6 +68,9 @@
     <string name="menu_for_sunday">Меню на воскресенье</string>
     <string name="family_required_for_plan">Войдите в семью, чтобы пользоваться меню на неделю</string>
     <string name="week_menu_cleared">Меню на неделю очищено</string>
+    <string name="clear_week_menu_dialog_title">Очистить меню на неделю?</string>
+    <string name="clear_week_menu_dialog_message">Все запланированные блюда на все дни будут удалены. Это действие нельзя отменить.</string>
+    <string name="clear_week_menu_confirm">Очистить</string>
     <string name="could_not_clear_menu">Не удалось очистить меню</string>
     <string name="network_error_simple">Ошибка сети: </string>
     <string name="could_not_add_dish_to_plan">Блюдо сохранено, не удалось добавить в меню дня</string>
@@ -75,6 +80,7 @@
     <string name="dish_add_to_plan_failed">Не удалось добавить блюдо в меню</string>
     <!---->
     <string name="create_family">Создайте семью или присоединитесь к уже существующей</string>
+    <string name="family_my_family_fallback">Моя семья</string>
     <string name="Family">Семья</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

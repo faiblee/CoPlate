@@ -4,7 +4,7 @@
     android:id="@+id/authContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/app_window_background">
 
     <LinearLayout
         android:id="@+id/logo_layout"
@@ -23,14 +23,14 @@
             android:text="Co"
             android:textSize="50sp"
             android:textStyle="bold"
-            android:textColor="#F4A62A" />
+            android:textColor="@color/app_auth_orange" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text='Plate'
             android:textSize="50sp"
             android:textStyle="bold"
-            android:textColor="#2E7D32" />
+            android:textColor="@color/app_auth_link_green" />
     </LinearLayout>
 
     <ImageView
@@ -74,7 +74,7 @@
         android:background="@drawable/btn_green_light"
         android:text="Зарегистрироваться"
         android:textAllCaps="false"
-        android:textColor="#2E7D32"
+        android:textColor="@color/app_auth_link_green"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

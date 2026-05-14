@@ -10,7 +10,7 @@
         android:id="@+id/plannedDetailTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#1F2A24"
+        android:textColor="@color/app_text_primary"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/dish_ingredients_section"
-                android:textColor="#666666"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="13sp" />
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:lineSpacingMultiplier="1.15"
-                android:textColor="#333333"
+                android:textColor="@color/app_text_body"
                 android:textSize="15sp" />
 
             <TextView
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:text="@string/dish_description_section"
-                android:textColor="#666666"
+                android:textColor="@color/app_text_secondary"
                 android:textSize="13sp" />
 
             <TextView
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="#333333"
+                android:textColor="@color/app_text_body"
                 android:textSize="15sp" />
         </LinearLayout>
     </ScrollView>
@@ -68,16 +68,16 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/plannedDetailClose"
+            android:id="@+id/plannedDetailToShopping"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:background="@drawable/action_button"
             android:backgroundTint="@null"
-            android:text="@string/close"
+            android:text="@string/planned_dish_to_shopping"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+            android:textColor="@color/app_on_brand_button" />
 
         <Button
             android:id="@+id/plannedDetailRemove"
@@ -88,6 +88,6 @@
             android:backgroundTint="@null"
             android:text="@string/remove_dish_from_plan"
             android:textAllCaps="false"
-            android:textColor="#C62828" />
+            android:textColor="@color/app_remove_text" />
     </LinearLayout>
 </LinearLayout>
