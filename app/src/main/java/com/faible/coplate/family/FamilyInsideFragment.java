@@ -33,6 +33,7 @@ import retrofit2.Response;
 
 public class FamilyInsideFragment extends Fragment {
 
+    private TextView familyTitleText;
     private TextView familyCodeText;
     private RecyclerView membersRecyclerView;
     private Button actionButton;
@@ -68,6 +69,10 @@ public class FamilyInsideFragment extends Fragment {
         }
 
         // Инициализация UI
+        familyTitleText = view.findViewById(R.id.familyTitleText);
+        String cachedFamilyName = prefs.getString("family_name", null);
+        applyFamilyTitle(cachedFamilyName);
+
         familyCodeText = view.findViewById(R.id.familyCodeText);
         membersRecyclerView = view.findViewById(R.id.membersRecyclerView);
         actionButton = view.findViewById(R.id.actionButton);
@@ -100,6 +105,15 @@ public class FamilyInsideFragment extends Fragment {
             public void onResponse(Call<Family> call, Response<Family> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Family family = response.body();
+                    SharedPreferences prefs = requireContext().getSharedPreferences("app_prefs", requireContext().MODE_PRIVATE);
+                    String resolvedName = family.getName();
+                    if (resolvedName != null && !resolvedName.trim().isEmpty()) {
+                        prefs.edit().putString("family_name", resolvedName.trim()).apply();
+                    } else {
+                        resolvedName = prefs.getString("family_name", null);
+                    }
+                    applyFamilyTitle(resolvedName);
+
                     inviteCode = family.getInviteCode();
                     if (familyCodeText != null) {
                         familyCodeText.setText(inviteCode != null ? inviteCode : "Нет кода");
@@ -115,6 +129,15 @@ public class FamilyInsideFragment extends Fragment {
                 Toast.makeText(requireContext(), "Ошибка загрузки семьи", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void applyFamilyTitle(String name) {
+        if (familyTitleText == null) return;
+        if (name != null && !name.trim().isEmpty()) {
+            familyTitleText.setText(name.trim());
+        } else {
+            familyTitleText.setText(getString(R.string.family_my_family_fallback));
+        }
     }
 
     private void setupFamilyCodeCopy() {

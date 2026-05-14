@@ -75,6 +75,7 @@
     <string name="dish_add_to_plan_failed">Не удалось добавить блюдо в меню</string>
     <!---->
     <string name="create_family">Создайте семью или присоединитесь к уже существующей</string>
+    <string name="family_my_family_fallback">Моя семья</string>
     <string name="Family">Семья</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
